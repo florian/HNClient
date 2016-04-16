@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styles from './ListHeader.styl'
 
+import DisplayChooser from './DisplayChooser'
+
 // This is not a duplicate from ResourceChooser, since some labels here are
 // shorter because there's less available place
 const resources = {
@@ -17,7 +19,8 @@ const resources = {
 export default class ListHeader extends Component {
   static propTypes = {
     onHamburger: React.PropTypes.func.isRequired,
-    enabled: React.PropTypes.bool.isRequired
+    enabled: React.PropTypes.bool.isRequired,
+    onDisplayChange: React.PropTypes.func.isRequired
   }
 
   constructor (props, context) {
@@ -38,6 +41,7 @@ export default class ListHeader extends Component {
         <div className={styles.hamburger} />
       </button>
       {resources[this.props.resource]}
+      <DisplayChooser onChange={this.props.onDisplayChange} />
     </h2>
   }
 

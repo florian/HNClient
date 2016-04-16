@@ -4,7 +4,12 @@ import styles from './Resizer.styl'
 export default class Resizer extends Component {
   static propTypes = {
     onResize: React.PropTypes.func.isRequired,
-    onResizeEnd: React.PropTypes.func
+    onResizeEnd: React.PropTypes.func,
+    show: React.PropTypes.bool
+  }
+
+  static defaultProps = {
+    show: true
   }
 
   static defaultProps = {
@@ -22,6 +27,7 @@ export default class Resizer extends Component {
 
   render () {
     const style = { left: `calc(400px + ((100% - 400px) * ${this.props.width} / 100))` }
+    if (!this.props.show) style.display = "none"
 
     return <div
       className={styles.resizer}

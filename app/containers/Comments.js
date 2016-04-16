@@ -12,7 +12,14 @@ export default class Comments extends Component {
     id: React.PropTypes.oneOfType([
       React.PropTypes.number,
       React.PropTypes.string
-    ]).isRequired
+    ]).isRequired,
+
+    show: React.PropTypes.bool,
+    width: React.PropTypes.number
+  }
+
+  static defaultProps = {
+    show: true
   }
 
   constructor (props, context) {
@@ -38,6 +45,7 @@ export default class Comments extends Component {
 
   render () {
     const style = { width: `calc((100% - 400px) * ${this.props.width} / 100)` }
+    if (!this.props.show) style.display = "none"
 
     return <div className={styles.commentContainer} style={style} ref="container">
       <h2 className="header commentHeader">{this.state.count} comments</h2>

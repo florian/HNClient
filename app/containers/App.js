@@ -17,7 +17,8 @@ export default class App extends Component {
       resource: "news",
       data: [],
       selected: undefined,
-      websiteWidth: 60 // in percent
+      websiteWidth: 60, // in percent
+      display: "both" // both, link, comments
     }
   }
 
@@ -40,6 +41,7 @@ export default class App extends Component {
           changeSelection={this.changeSelection.bind(this)}
           onResourceChange={this.changeResource.bind(this)}
           resource={this.state.resource}
+          onDisplayChange={this.onDisplayChange.bind(this)}
         />
 
         {this.renderChosen()}
@@ -57,16 +59,24 @@ export default class App extends Component {
 
   renderChosen () {
     const item = this.getChosen()
+    if (!item) return false
 
-    if (item) {
-      return <div>
-        <Website item={item} width={this.state.websiteWidth} />
-        <Resizer onResize={this.onResize.bind(this)} onResizeEnd={this.onResizeEnd.bind(this)} width={this.state.websiteWidth} />
-        <Comments id={item.id} width={100 - this.state.websiteWidth} />
-      </div>
-    } else {
-      return false
-    }
+    const display = this.state.display
+
+    return <div>
+      <Website item={item}
+        width={display === "link" ? 100 : this.state.websiteWidth}
+        show={display !== "comments"} />
+
+      <Resizer onResize={this.onResize.bind(this)}
+        onResizeEnd={this.onResizeEnd.bind(this)}
+        width={this.state.websiteWidth}
+        show={display === "both"} />
+
+      <Comments id={item.id}
+        width={display === "comments" ? 100 : 100 - this.state.websiteWidth}
+        show={display !== "link"} />
+    </div>
   }
 
   renderDevTools () {
@@ -104,6 +114,10 @@ export default class App extends Component {
 
   onResizeEnd () {
     this.setState({ resizing: false })
+  }
+
+  onDisplayChange (display) {
+    this.setState({ display })
   }
 
   fetch () {

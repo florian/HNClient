@@ -11,7 +11,8 @@ export default class StoryList extends Component {
     selected: React.PropTypes.number,
     changeSelection: React.PropTypes.func.isRequired,
     onResourceChange: React.PropTypes.func.isRequired,
-    resource: React.PropTypes.string.isRequired
+    resource: React.PropTypes.string.isRequired,
+    onDisplayChange: React.PropTypes.func.isRequired
   }
 
   constructor (props, context) {
@@ -27,7 +28,7 @@ export default class StoryList extends Component {
     if (this.props.selected === undefined) className += " " + styles.nothingChosen
 
     return <div className={className}>
-      <ListHeader onHamburger={this.toggleChooser.bind(this)} enabled={this.state.chooserOpen} resource={this.props.resource} />
+      <ListHeader onHamburger={this.toggleChooser.bind(this)} enabled={this.state.chooserOpen} resource={this.props.resource} onDisplayChange={this.props.onDisplayChange} />
       <ResourceChooser open={this.state.chooserOpen} onChange={this.changeResource.bind(this)} />
 
       <ol className={`${styles.storyList} ${this.state.chooserOpen ? styles.listInBackground : ""}`}>

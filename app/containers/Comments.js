@@ -25,12 +25,13 @@ export default class Comments extends Component {
 
   componentDidUpdate (prevProps) {
     if (prevProps.id !== this.props.id) this.fetch()
+    this.refs.container.scrollTop = 0
   }
 
   render () {
     const style = { width: `calc((100% - 400px) * ${this.props.width} / 100)` }
 
-    return <div className={styles.commentContainer} style={style}>
+    return <div className={styles.commentContainer} style={style} ref="container">
       <h2 className="header commentHeader">{this.state.count} comments</h2>
       <div className={styles.commentList}>
         {this.state.comments.map(this.renderComment, this)}

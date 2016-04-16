@@ -24,8 +24,10 @@ export default class Comments extends Component {
   }
 
   componentDidUpdate (prevProps) {
-    if (prevProps.id !== this.props.id) this.fetch()
-    this.refs.container.scrollTop = 0
+    if (prevProps.id !== this.props.id) {
+      this.fetch()
+      this.refs.container.scrollTop = 0
+    }
   }
 
   render () {

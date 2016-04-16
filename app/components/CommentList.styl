@@ -5,11 +5,18 @@
 	background-color: #EA8F32
 	color: white
 	padding: 5px
+	cursor: n-resize
+
+.aboutChildren
+	display: none
+	margin-left: 5px
+	font-size: 13px
 
 .username
 	font-weight: bold
 	margin-right: 5px
 	font-size: 14px
+	cursor: pointer
 
 .time
 	font-size: 13px
@@ -21,6 +28,17 @@
 
 .children
 	margin-left: 20px
+
+.folded
+	.about
+		cursor: s-resize
+		margin-bottom: 10px
+
+	.aboutChildren
+		display: inline-block
+
+	.content, .children
+		display: none
 
 p
 	padding: 5px

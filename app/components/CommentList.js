@@ -26,9 +26,11 @@ export default class CommentList extends Component {
     return <div className={className}>
       <div className={styles.contentWrapper}>
         <div className={styles.about} onClick={this.toggleFolded.bind(this)}>
-          <span className={styles.username} title={userURL} onClick={this.onUserClick}>{data.user}</span>
-          <span className={styles.time}>{data.time_ago}</span>
-          <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
+          <div className={styles.aboutItem}>
+            <span className={styles.username} title={userURL} onClick={this.onUserClick}>{data.user}</span>
+            <span className={styles.time}>{data.time_ago}</span>
+            <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
+          </div>
           <i className={`fa fa-reply ${styles.reply}`} aria-hidden="true" onClick={this.openReply.bind(this)}></i>
         </div>
 

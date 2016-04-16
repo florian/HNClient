@@ -98,7 +98,7 @@ export default class App extends Component {
   fetch () {
     this.setState({ loading: true, failed: false })
 
-    axios.get('http://localhost:1339/news').then(response => {
+    axios.get('https://node-hnapi.herokuapp.com/news').then(response => {
       this.setState({ data: response.data, loading: false })
     }).catch(response => {
       this.setState({ failed: true, loading: false })

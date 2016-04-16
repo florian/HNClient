@@ -64,7 +64,7 @@ export default class Comments extends Component {
   fetch () {
     this.setState({ loading: true, failed: false })
 
-    axios.get(`http://localhost:1339/item/${this.props.id}`).then(response => {
+    axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then(response => {
       this.setState({ comments: response.data.comments, count: response.data.comments_count, loading: false, failed: false })
     }).catch(response => {
       this.setState({ loading: false, failed: true })

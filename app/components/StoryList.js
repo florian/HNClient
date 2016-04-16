@@ -12,7 +12,7 @@ export default class StoryList extends Component {
 
   render () {
     return <div className={styles.listContainer}>
-      <h2 className="header">Top Stories</h2>
+      <h2 className="header storyHeader">Top Stories</h2>
       <ol className={styles.storyList}>
       {this.props.data.map(this.renderItem, this)}
       </ol>

@@ -28,7 +28,9 @@ export default class Comments extends Component {
   }
 
   render () {
-    return <div className={styles.commentContainer}>
+    const style = { width: `calc((100% - 400px) * ${this.props.width} / 100)` }
+
+    return <div className={styles.commentContainer} style={style}>
       <h2 className="header commentHeader">{this.state.count} comments</h2>
       <div className={styles.commentList}>
         {this.state.comments.map(this.renderComment, this)}

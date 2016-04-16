@@ -24,16 +24,20 @@ export default class CommentList extends Component {
     const className = `${styles.comment} ${foldedClass}`
 
     return <div className={className}>
-      <div className={styles.about} onClick={this.toggleFolded.bind(this)}>
-        <span className={styles.username} title={userURL} onClick={this.onUserClick}>{data.user}</span>
-        <span className={styles.time}>{data.time_ago}</span>
-        <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
-      </div>
+      <div className={styles.contentWrapper}>
+        <div className={styles.about} onClick={this.toggleFolded.bind(this)}>
+          <span className={styles.username} title={userURL} onClick={this.onUserClick}>{data.user}</span>
+          <span className={styles.time}>{data.time_ago}</span>
+          <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
+          <i className={`fa fa-reply ${styles.reply}`} aria-hidden="true" onClick={this.openReply.bind(this)}></i>
+        </div>
 
-      {this.renderContent()}
-      <div className={styles.children}>
-        {data.comments.map(this.renderChild, this)}
-      </div>
+        {this.renderContent()}
+    </div>
+
+    <div className={styles.children}>
+      {data.comments.map(this.renderChild, this)}
+    </div>
     </div>
   }
 
@@ -50,12 +54,19 @@ export default class CommentList extends Component {
   }
 
   renderChild (item) {
-    return <CommentList data={item} key={item.id} />
+    return <CommentList data={item} topId={this.props.topId} key={item.id} />
   }
 
   onUserClick (e) {
     const url = e.target.title
     shell.openExternal(url)
+
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  openReply (e) {
+    shell.openExternal(`https://news.ycombinator.com/reply?id=${this.props.data.id}&goto=item%3Fid%3D${this.props.topId}`)
 
     e.preventDefault()
     e.stopPropagation()

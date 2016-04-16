@@ -25,7 +25,7 @@ export default class CommentList extends Component {
 
     return <div className={className}>
       <div className={styles.about} onClick={this.toggleFolded.bind(this)}>
-        <span className={styles.username} title={userURL} onClick={this.openURL.bind(this, userURL)}>{data.user}</span>
+        <span className={styles.username} title={userURL} onClick={this.onUserClick}>{data.user}</span>
         <span className={styles.time}>{data.time_ago}</span>
         <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
       </div>
@@ -41,8 +41,12 @@ export default class CommentList extends Component {
     return <CommentList data={item} key={item.id} />
   }
 
-  openURL (url) {
+  onUserClick (e) {
+    const url = e.target.title
     shell.openExternal(url)
+
+    e.preventDefault()
+    e.stopPropagation()
   }
 
   toggleFolded () {

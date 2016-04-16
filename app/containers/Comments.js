@@ -42,7 +42,7 @@ export default class Comments extends Component {
   }
 
   renderComment (comment, i) {
-    return <CommentList data={comment} />
+    return <CommentList data={comment} key={comment.id} />
   }
 
   fetch () {

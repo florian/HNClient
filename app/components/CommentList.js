@@ -38,7 +38,7 @@ export default class CommentList extends Component {
   }
 
   renderChild (item) {
-    return <CommentList data={item} />
+    return <CommentList data={item} key={item.id} />
   }
 
   openURL (url) {

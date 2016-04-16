@@ -30,11 +30,23 @@ export default class CommentList extends Component {
         <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
       </div>
 
-      <div className={styles.content} dangerouslySetInnerHTML={{__html: data.content}} />
+      {this.renderContent()}
       <div className={styles.children}>
         {data.comments.map(this.renderChild, this)}
       </div>
     </div>
+  }
+
+  renderContent () {
+    const content = this.props.data.content
+
+    if (content !== "[deleted]") {
+      return <div className={styles.content} dangerouslySetInnerHTML={{__html: content}} />
+    } else {
+      return <div className={`${styles.content} ${styles.deletedContent}`}>
+        This comment was deleted.
+      </div>
+    }
   }
 
   renderChild (item) {

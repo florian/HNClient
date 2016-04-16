@@ -11,7 +11,10 @@ export default class StoryList extends Component {
   }
 
   render () {
-    return <div className={styles.listContainer}>
+    var className = styles.listContainer
+    if (this.props.selected === undefined) className += " " + styles.nothingChosen
+
+    return <div className={className}>
       <h2 className="header storyHeader">Top Stories</h2>
       <ol className={styles.storyList}>
       {this.props.data.map(this.renderItem, this)}

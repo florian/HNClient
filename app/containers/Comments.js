@@ -8,7 +8,11 @@ import CommentList from '../components/CommentList'
 
 export default class Comments extends Component {
   static propTypes = {
-    id: React.PropTypes.number.isRequired
+    // This is needed because the API sometimes returns a String as an ID
+    id: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ]).isRequired
   }
 
   constructor (props, context) {

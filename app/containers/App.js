@@ -25,8 +25,8 @@ export default class App extends Component {
     this.fetch()
   }
 
-  componentDidUpdate (prevProps) {
-    if (prevProps.resource !== this.props.resource) this.fetch()
+  componentDidUpdate (prevProps, prevState) {
+    if (prevState.resource !== this.state.resource) this.fetch()
   }
 
   render() {
@@ -34,7 +34,14 @@ export default class App extends Component {
 
     return (
       <div className={className}>
-        <StoryList data={this.state.data} selected={this.state.selected} changeSelection={this.changeSelection.bind(this)} />
+        <StoryList
+          data={this.state.data}
+          selected={this.state.selected}
+          changeSelection={this.changeSelection.bind(this)}
+          onResourceChange={this.changeResource.bind(this)}
+          resource={this.state.resource}
+        />
+
         {this.renderChosen()}
         {this.renderDevTools()}
       </div>
@@ -75,6 +82,10 @@ export default class App extends Component {
     this.setState({ selected: i })
   }
 
+  changeResource (key) {
+    this.setState({ resource: key })
+  }
+
   // Returns true or false indicating if the resize was accepted
   onResize (px) {
     this.setState({ resizing: true })
@@ -98,7 +109,7 @@ export default class App extends Component {
   fetch () {
     this.setState({ loading: true, failed: false })
 
-    axios.get('https://node-hnapi.herokuapp.com/news').then(response => {
+    axios.get(`https://node-hnapi.herokuapp.com/${this.state.resource}`).then(response => {
       this.setState({ data: response.data, loading: false })
     }).catch(response => {
       this.setState({ failed: true, loading: false })

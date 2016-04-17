@@ -21,7 +21,9 @@ export default class ListHeader extends Component {
     onHamburger: React.PropTypes.func.isRequired,
     enabled: React.PropTypes.bool.isRequired,
     onDisplayChange: React.PropTypes.func.isRequired,
-    selectedStory: React.PropTypes.object
+    selectedStory: React.PropTypes.object,
+    loading: React.PropTypes.bool.isRequired,
+    onReload: React.PropTypes.func.isRequired
   }
 
   constructor (props, context) {
@@ -41,6 +43,7 @@ export default class ListHeader extends Component {
       <button className={`${styles.hamburgerContainer} ${this.state.enabled ? styles.open : ""}`} onClick={this.toggle.bind(this)}>
         <div className={styles.hamburger} />
       </button>
+      {this.renderLoader()}
       {resources[this.props.resource]}
       <DisplayChooser onChange={this.props.onDisplayChange} story={this.props.selectedStory} />
     </h2>
@@ -50,5 +53,12 @@ export default class ListHeader extends Component {
     const enabled = !this.state.enabled
     this.setState({ enabled })
     this.props.onHamburger(enabled)
+  }
+
+  renderLoader () {
+    var className = `storyHeaderUnimportant fa fa-refresh fa-fw ${styles.loader}`
+    if (this.props.loading) className += " fa-spin"
+
+    return <i className={className} onClick={this.props.onReload} />
   }
 }

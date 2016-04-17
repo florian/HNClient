@@ -12,7 +12,9 @@ export default class StoryList extends Component {
     changeSelection: React.PropTypes.func.isRequired,
     onResourceChange: React.PropTypes.func.isRequired,
     resource: React.PropTypes.string.isRequired,
-    onDisplayChange: React.PropTypes.func.isRequired
+    onDisplayChange: React.PropTypes.func.isRequired,
+    loading: React.PropTypes.bool.isRequired,
+    onReload: React.PropTypes.func.isRequired
   }
 
   constructor (props, context) {
@@ -33,6 +35,8 @@ export default class StoryList extends Component {
         enabled={this.state.chooserOpen} resource={this.props.resource}
         onDisplayChange={this.props.onDisplayChange}
         selectedStory={this.props.data[this.props.selected]}
+        loading={this.props.loading}
+        onReload={this.props.onReload}
       />
 
       <ResourceChooser open={this.state.chooserOpen} onChange={this.changeResource.bind(this)} />

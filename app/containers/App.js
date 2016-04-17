@@ -42,6 +42,8 @@ export default class App extends Component {
           onResourceChange={this.changeResource.bind(this)}
           resource={this.state.resource}
           onDisplayChange={this.onDisplayChange.bind(this)}
+          loading={this.state.loading}
+          onReload={this.fetch.bind(this)}
         />
 
         {this.renderChosen()}

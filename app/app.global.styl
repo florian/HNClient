@@ -25,5 +25,13 @@ body
 	border-right: 1px solid rgba(0,0,0,.2)
 	overflow: visible
 
+	&:hover
+		.storyHeaderUnimportant
+			opacity: 1
+			transition: opacity .2s ease-out
+
+	.storyHeaderUnimportant
+		opacity: 0
+
 .commentHeader
 	right: 0

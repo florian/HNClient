@@ -11,6 +11,8 @@
 	border-radius: 5px
 	cursor: pointer
 	transition: opacity .5s ease-out
+	color: white
+	text-decoration: none
 
 	&:hover
 		background-color: rgba(0,0,0,0.3)
@@ -24,4 +26,7 @@
 .selfPost
 	.both, .link
 		opacity: .5
-		pointer-events: none
+		cursor: default
+
+		&:hover
+			background-color: transparent

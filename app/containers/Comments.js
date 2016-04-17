@@ -42,8 +42,11 @@ export default class Comments extends Component {
     this.fetch()
   }
 
-  componentDidUpdate (prevProps) {
-    if (prevProps.id !== this.props.id) {
+  componentDidUpdate (prevProps, prevState) {
+    // We want to (re)fetch the comments if a new story was chosen (i.e. the ID
+    // changed) or if everything is the same (i.e same state) meaning that the
+    // user clicked the current item again to reload
+    if (prevProps.id !== this.props.id || prevState === this.state) {
       this.fetch()
       this.refs.container.scrollTop = 0
     }
@@ -59,21 +62,17 @@ export default class Comments extends Component {
         <CommentsActionMenu item={this.state.data} />
       </h2>
 
-      <div className={styles.commentList} onClick={this.commentClicked.bind(this)}>
-        {this.renderContent()}
-        {this.renderReplyButton()}
-        {this.state.comments.map(this.renderComment, this)}
-      </div>
+      {this.renderComments()}
 
-      <Tooltip place="bottom" type="dark" effect="solid" id="OP">
+      <Tooltip place="top" type="dark" effect="solid" id="OP">
         Original Poster – this user submitted the story
       </Tooltip>
 
-      <Tooltip place="bottom" type="dark" effect="solid" id="external-comments-link">
+      <Tooltip place="left" type="dark" effect="solid" id="external-comments-link">
         Open the link to all comments in an external browser
       </Tooltip>
 
-      <Tooltip place="bottom" type="dark" effect="solid" id="commments-clipboard">
+      <Tooltip place="left" type="dark" effect="solid" id="commments-clipboard">
         Copy the link to all comments
       </Tooltip>
 
@@ -88,9 +87,34 @@ export default class Comments extends Component {
   }
 
   getHeaderContent () {
+    if (this.state.loading) {
+      return <span className={styles.loading}>
+        <i className="fa fa-refresh fa-spin" />
+        Loading comments…
+      </span>
+    }
+
+    if (this.state.failed) {
+      return <span className={styles.failed}>
+        <i className="fa fa-exclamation-circle" />
+        Couldn't load comments
+      </span>
+    }
+
     var content = `${this.state.count} comments`
     if (this.props.width === 100) content = `${this.state.data.title} (${content})`
     return content
+  }
+
+
+  renderComments () {
+    if (this.state.loading || this.state.failed) return false
+
+    return <div className={styles.commentList} onClick={this.commentClicked.bind(this)}>
+      {this.renderContent()}
+      {this.renderReplyButton()}
+      {this.state.comments.map(this.renderComment, this)}
+    </div>
   }
 
   renderContent () {

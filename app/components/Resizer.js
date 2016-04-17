@@ -50,6 +50,8 @@ export default class Resizer extends Component {
   }
 
   onMouseUp (e) {
+    if (this.state.clicked === false) return false
+
     this.setState({ clicked: false, pos: 0 })
     this.props.onResizeEnd()
   }

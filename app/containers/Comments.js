@@ -7,6 +7,8 @@ import {shell} from 'electron'
 import CommentList from '../components/CommentList'
 import UserLink from '../components/UserLink'
 
+import Tooltip from 'react-tooltip'
+
 export default class Comments extends Component {
   static propTypes = {
     // This is needed because the API sometimes returns a String as an ID
@@ -29,7 +31,9 @@ export default class Comments extends Component {
     this.state = {
       loading: true,
       failed: false,
-      comments: []
+      comments: [],
+      count: undefined,
+      data: {}
     }
   }
 
@@ -55,6 +59,10 @@ export default class Comments extends Component {
         {this.renderReplyButton()}
         {this.state.comments.map(this.renderComment, this)}
       </div>
+
+      <Tooltip place="bottom" type="dark" effect="solid" id="OP">
+        Original Poster – this user submitted the story
+      </Tooltip>
     </div>
   }
 
@@ -89,7 +97,7 @@ export default class Comments extends Component {
   }
 
   renderComment (comment, i) {
-    return <CommentList data={comment} topId={this.props.id} key={comment.id} />
+    return <CommentList data={comment} topId={this.props.id} OP={this.state.data.user} key={comment.id} />
   }
 
   openCommentsUrl () {

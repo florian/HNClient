@@ -7,7 +7,12 @@ import {shell} from 'electron'
 
 export default class CommentList extends Component {
   static propTypes = {
-    data: React.PropTypes.object.isRequired
+    data: React.PropTypes.object.isRequired,
+    topId: React.PropTypes.oneOfType([
+        React.PropTypes.number,
+        React.PropTypes.string
+    ]).isRequired,
+    OP: React.PropTypes.string.isRequired
   }
 
   constructor (props, context) {
@@ -29,6 +34,7 @@ export default class CommentList extends Component {
         <div className={styles.about} onClick={this.toggleFolded.bind(this)}>
           <div className={styles.aboutItem}>
             <UserLink name={data.user} className={styles.username} />
+            {data.user === this.props.OP ? this.renderOP() : ""}
             <span className={styles.time}>{data.time_ago}</span>
             <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
           </div>
@@ -44,6 +50,14 @@ export default class CommentList extends Component {
     </div>
   }
 
+  renderOP () {
+    return <span
+      className={styles.isOP}
+      data-tip
+      data-for="OP"
+    >OP</span>
+  }
+
   renderContent () {
     const content = this.props.data.content
 
@@ -57,7 +71,7 @@ export default class CommentList extends Component {
   }
 
   renderChild (item) {
-    return <CommentList data={item} topId={this.props.topId} key={item.id} />
+    return <CommentList data={item} topId={this.props.topId} OP={this.props.OP} key={item.id} />
   }
 
   openReply (e) {

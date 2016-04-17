@@ -28,7 +28,13 @@ export default class StoryList extends Component {
     if (this.props.selected === undefined) className += " " + styles.nothingChosen
 
     return <div className={className}>
-      <ListHeader onHamburger={this.toggleChooser.bind(this)} enabled={this.state.chooserOpen} resource={this.props.resource} onDisplayChange={this.props.onDisplayChange} />
+      <ListHeader
+        onHamburger={this.toggleChooser.bind(this)}
+        enabled={this.state.chooserOpen} resource={this.props.resource}
+        onDisplayChange={this.props.onDisplayChange}
+        selectedStory={this.props.data[this.props.selected]}
+      />
+
       <ResourceChooser open={this.state.chooserOpen} onChange={this.changeResource.bind(this)} />
 
       <ol className={`${styles.storyList} ${this.state.chooserOpen ? styles.listInBackground : ""}`}>

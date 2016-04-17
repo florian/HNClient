@@ -5,6 +5,7 @@ import styles from './Comments.styl'
 import {shell} from 'electron'
 
 import CommentList from '../components/CommentList'
+import UserLink from '../components/UserLink'
 
 export default class Comments extends Component {
   static propTypes = {
@@ -48,16 +49,34 @@ export default class Comments extends Component {
     if (!this.props.show) style.display = "none"
 
     return <div className={styles.commentContainer} style={style} ref="container">
-      <h2 className="header commentHeader">{this.state.count} comments</h2>
+      <h2 className="header commentHeader">{this.getHeaderContent()}</h2>
       <div className={styles.commentList}>
+        {this.renderContent()}
         {this.renderReplyButton()}
         {this.state.comments.map(this.renderComment, this)}
       </div>
     </div>
   }
 
-  renderComment (comment, i) {
-    return <CommentList data={comment} topId={this.props.id} key={comment.id} />
+  getHeaderContent () {
+    var content = `${this.state.count} comments`
+    if (this.props.width === 100) content = `${this.state.data.title} (${content})`
+    return content
+  }
+
+  renderContent () {
+    if (!this.state.data) return false
+    const { content, user, time_ago } = this.state.data
+    if (!content) return false
+
+    return <div className={styles.selfPost}>
+      <div className={styles.about}>
+        <UserLink name={user} className={styles.user} />
+        –
+        <span className={styles.time_ago}>{time_ago}</span>
+      </div>
+      <div className={styles.content} dangerouslySetInnerHTML={{__html: content}}></div>
+    </div>
   }
 
   renderReplyButton () {
@@ -69,6 +88,10 @@ export default class Comments extends Component {
     </div>
   }
 
+  renderComment (comment, i) {
+    return <CommentList data={comment} topId={this.props.id} key={comment.id} />
+  }
+
   openCommentsUrl () {
     shell.openExternal(`https://news.ycombinator.com/item?id=${this.props.id}`)
   }
@@ -77,7 +100,7 @@ export default class Comments extends Component {
     this.setState({ loading: true, failed: false })
 
     axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then(response => {
-      this.setState({ comments: response.data.comments, count: response.data.comments_count, loading: false, failed: false })
+      this.setState({ comments: response.data.comments, count: response.data.comments_count, data: response.data, loading: false, failed: false })
     }).catch(response => {
       this.setState({ loading: false, failed: true })
     })

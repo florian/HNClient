@@ -124,7 +124,7 @@ export default class App extends Component {
     this.setState({ loading: true, failed: false })
 
     axios.get(`https://node-hnapi.herokuapp.com/${this.state.resource}`).then(response => {
-      this.setState({ data: response.data, loading: false })
+      this.setState({ data: response.data, loading: false, selected: 0 })
     }).catch(response => {
       this.setState({ failed: true, loading: false })
     })

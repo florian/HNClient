@@ -10,6 +10,18 @@
 	padding: 3px
 	border-radius: 5px
 	cursor: pointer
+	transition: opacity .5s ease-out
+
+	&:hover
+		background-color: rgba(0,0,0,0.3)
 
 .selected
 	background-color: rgba(0, 0, 0, 0.62)
+
+	&:hover
+		background-color: @background-color
+
+.selfPost
+	.both, .link
+		opacity: .5
+		pointer-events: none

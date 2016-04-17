@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styles from './CommentList.styl'
 
+import UserLink from './UserLink.js'
+
 import {shell} from 'electron'
 
 export default class CommentList extends Component {
@@ -18,16 +20,15 @@ export default class CommentList extends Component {
 
   render () {
     const data = this.props.data
-    const userURL = `https://news.ycombinator.com/user?id=${data.user}`
 
     const foldedClass = this.state.folded ? styles.folded : ""
-    const className = `${styles.comment} ${foldedClass}`
+    const className = `${foldedClass}`
 
     return <div className={className}>
       <div className={styles.contentWrapper}>
         <div className={styles.about} onClick={this.toggleFolded.bind(this)}>
           <div className={styles.aboutItem}>
-            <span className={styles.username} title={userURL} onClick={this.onUserClick}>{data.user}</span>
+            <UserLink name={data.user} className={styles.username} />
             <span className={styles.time}>{data.time_ago}</span>
             <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
           </div>
@@ -57,14 +58,6 @@ export default class CommentList extends Component {
 
   renderChild (item) {
     return <CommentList data={item} topId={this.props.topId} key={item.id} />
-  }
-
-  onUserClick (e) {
-    const url = e.target.title
-    shell.openExternal(url)
-
-    e.preventDefault()
-    e.stopPropagation()
   }
 
   openReply (e) {

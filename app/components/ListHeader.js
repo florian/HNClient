@@ -20,7 +20,8 @@ export default class ListHeader extends Component {
   static propTypes = {
     onHamburger: React.PropTypes.func.isRequired,
     enabled: React.PropTypes.bool.isRequired,
-    onDisplayChange: React.PropTypes.func.isRequired
+    onDisplayChange: React.PropTypes.func.isRequired,
+    selectedStory: React.PropTypes.object
   }
 
   constructor (props, context) {
@@ -41,7 +42,7 @@ export default class ListHeader extends Component {
         <div className={styles.hamburger} />
       </button>
       {resources[this.props.resource]}
-      <DisplayChooser onChange={this.props.onDisplayChange} />
+      <DisplayChooser onChange={this.props.onDisplayChange} story={this.props.selectedStory} />
     </h2>
   }
 

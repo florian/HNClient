@@ -10,3 +10,23 @@
 
 	webview
 		height: 100%
+
+.navigation
+	position: absolute
+	left: 10px
+	top: 6px
+	font-size: 25px
+
+	i:first-child
+		margin-right: 5px
+
+	i
+		cursor: pointer
+
+		&:hover
+			color: darken(white, 5%)
+
+	.disabledNavigation
+		cursor: default
+		pointer-events: none
+		opacity: .5

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styles from './Website.styl'
 
+import Tooltip from 'react-tooltip'
+
 export default class StoryList extends Component {
   static propTypes = {
     item: React.PropTypes.object.isRequired,
@@ -10,6 +12,15 @@ export default class StoryList extends Component {
 
   static defaultProps = {
     show: true
+  }
+
+  constructor (props, context) {
+    super(props, context)
+
+    this.state = {
+      canGoBack: false,
+      canGoForward: false
+    }
   }
 
   render () {
@@ -24,10 +35,60 @@ export default class StoryList extends Component {
     if (!this.props.show) style.width = 0
 
     return <div className={styles.websiteContainer} style={style}>
-      <h2 className="header itemHeader">{item.title}</h2>
+      <h2 className="header itemHeader">
+        <div className={styles.navigation}>
+          {this.renderBackButton()}
+          {this.renderForwardButton()}
+        </div>
+
+        {item.title}
+      </h2>
+
+      <Tooltip place="bottom" type="dark" effect="solid" id="navigationGoBack">
+        Go back to the previous website
+      </Tooltip>
+
+      <Tooltip place="bottom" type="dark" effect="solid" id="navigationGoForward">
+        Go forward to the last website
+      </Tooltip>
+
       <div className={styles.webviewContainer}>
-        <webview src={item.url} />
+        <webview
+          src={item.url}
+          ref="webview"
+        />
       </div>
     </div>
+  }
+
+  componentDidMount () {
+    this.refs.webview.addEventListener("did-start-loading", this.updateNavigation.bind(this))
+    this.refs.webview.addEventListener("did-stop-loading", this.updateNavigation.bind(this))
+  }
+
+  componentWillUnmount () {
+    this.refs.webview.removeEventListener("did-start-loading", this.updateNavigation.bind(this))
+    this.refs.webview.addEventListener("did-stop-loading", this.updateNavigation.bind(this))
+  }
+
+  updateNavigation () {
+    this.setState({
+      canGoBack: this.refs.webview.canGoBack(),
+      canGoForward: this.refs.webview.canGoForward()
+    })
+  }
+
+  renderBackButton () {
+    var className = "fa fa-caret-left"
+    if (!this.state.canGoBack) className += " " + styles.disabledNavigation
+
+    return <i className={className} data-tip data-for="navigationGoBack" onClick={() => this.refs.webview.goBack()} />
+  }
+
+  renderForwardButton () {
+    var className = "fa fa-caret-right"
+    if (!this.state.canGoForward) className += " " + styles.disabledNavigation
+
+    return <i className={className} data-tip data-for="navigationGoForward" onClick={() => this.refs.webview.goForward()} />
   }
 }

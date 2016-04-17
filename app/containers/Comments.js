@@ -76,6 +76,14 @@ export default class Comments extends Component {
       <Tooltip place="bottom" type="dark" effect="solid" id="commments-clipboard">
         Copy the link to all comments
       </Tooltip>
+
+      <Tooltip place="left" type="dark" effect="solid" id="copy-sub-comment-link">
+        Copy the direct link to this comment
+      </Tooltip>
+
+      <Tooltip place="left" type="dark" effect="solid" id="open-reply-link">
+        Open the link to reply to this comment in an external browser
+      </Tooltip>
     </div>
   }
 

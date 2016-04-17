@@ -39,17 +39,22 @@
 .time
 	font-size: 13px
 
-.reply
+.actions
 	position: absolute
 	right: 10px
 	font-size: 12px
 	top: 9px
 	opacity: 0
 	transition: opacity ease-out .2s
-	cursor: pointer
+
+	i
+		cursor: pointer
+
+	i + i
+		margin-left: 7px
 
 .contentWrapper:hover
-	.reply
+	.actions
 		opacity: 1
 
 .content

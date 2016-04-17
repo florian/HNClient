@@ -3,7 +3,7 @@ import styles from './CommentList.styl'
 
 import UserLink from './UserLink.js'
 
-import {shell} from 'electron'
+import { shell, clipboard } from 'electron'
 
 export default class CommentList extends Component {
   static propTypes = {
@@ -38,7 +38,11 @@ export default class CommentList extends Component {
             <span className={styles.time}>{data.time_ago}</span>
             <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
           </div>
-          <i className={`fa fa-reply ${styles.reply}`} aria-hidden="true" onClick={this.openReply.bind(this)}></i>
+
+          <div className={styles.actions}>
+            <i data-tip data-for="copy-sub-comment-link" className="fa fa-clipboard" onClick={this.copyLink.bind(this)}></i>
+            <i data-tip data-for="open-reply-link" className="fa fa-reply" onClick={this.openReply.bind(this)}></i>
+          </div>
         </div>
 
         {this.renderContent()}
@@ -76,6 +80,13 @@ export default class CommentList extends Component {
 
   openReply (e) {
     shell.openExternal(`https://news.ycombinator.com/reply?id=${this.props.data.id}&goto=item%3Fid%3D${this.props.topId}`)
+
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  copyLink (e) {
+    clipboard.writeText(`https://news.ycombinator.com/item?id=${this.props.data.id}`)
 
     e.preventDefault()
     e.stopPropagation()

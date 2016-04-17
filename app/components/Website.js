@@ -71,6 +71,11 @@ export default class StoryList extends Component {
     this.refs.webview.addEventListener("did-stop-loading", this.updateNavigation.bind(this))
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    // If the user chose a different story we want to clear the webview history
+    if (prevProps.item.url !== this.props.item.url) this.refs.webview.clearHistory()
+  }
+
   updateNavigation () {
     this.setState({
       canGoBack: this.refs.webview.canGoBack(),

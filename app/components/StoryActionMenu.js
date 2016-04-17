@@ -8,6 +8,7 @@ import {shell, clipboard} from 'electron'
 export default class StoryActionMenu extends Component {
   static propTypes = {
     onGoogle: React.PropTypes.func.isRequired,
+    onReadability: React.PropTypes.func.isRequired,
     item: React.PropTypes.object.isRequired
   }
 
@@ -21,6 +22,11 @@ export default class StoryActionMenu extends Component {
       <i data-tip data-for="clipboard"
         className="fa fa-clipboard"
         onClick={this.copy.bind(this)}
+      />
+
+      <i data-tip data-for="readablity"
+        className="fa fa-book"
+        onClick={this.props.onReadability}
       />
 
       <i data-tip data-for="google"

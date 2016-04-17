@@ -5,6 +5,8 @@ import StoryActionMenu from './StoryActionMenu'
 
 import Tooltip from 'react-tooltip'
 
+const readabilityCode = "((function(){window.baseUrl='//www.readability.com';window.readabilityToken='';var s=document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('charset','UTF-8');s.setAttribute('src',baseUrl+'/bookmarklet/read.js');document.documentElement.appendChild(s);})())"
+
 export default class StoryList extends Component {
   static propTypes = {
     item: React.PropTypes.object.isRequired,
@@ -48,6 +50,7 @@ export default class StoryList extends Component {
         <StoryActionMenu
           item={this.props.item}
           onGoogle={this.onGoogle.bind(this)}
+          onReadability={this.onReadability.bind(this)}
         />
       </h2>
 
@@ -65,6 +68,10 @@ export default class StoryList extends Component {
 
       <Tooltip place="bottom" type="dark" effect="solid" id="clipboard">
         Copy this link to the clipboard
+      </Tooltip>
+
+      <Tooltip place="bottom" type="dark" effect="solid" id="readablity">
+        Use Readability to make this article more readable
       </Tooltip>
 
       <Tooltip place="bottom" type="dark" effect="solid" id="google">
@@ -118,5 +125,15 @@ export default class StoryList extends Component {
 
   onGoogle () {
     this.refs.webview.src = `https://www.google.com/search?q=${this.props.item.title}`
+  }
+
+  onReadability () {
+    const webview = this.refs.webview
+
+    if (/^https?:\/\/www.readability.com\/articles/.test(webview.src)) {
+      webview.goBack()
+    } else {
+      webview.executeJavaScript(readabilityCode)
+    }
   }
 }

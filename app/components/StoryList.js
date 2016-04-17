@@ -14,7 +14,8 @@ export default class StoryList extends Component {
     resource: React.PropTypes.string.isRequired,
     onDisplayChange: React.PropTypes.func.isRequired,
     loading: React.PropTypes.bool.isRequired,
-    onReload: React.PropTypes.func.isRequired
+    onReload: React.PropTypes.func.isRequired,
+    failed: React.PropTypes.bool.isRequired
   }
 
   constructor (props, context) {
@@ -37,6 +38,7 @@ export default class StoryList extends Component {
         selectedStory={this.props.data[this.props.selected]}
         loading={this.props.loading}
         onReload={this.props.onReload}
+        failed={this.props.failed}
       />
 
       <ResourceChooser open={this.state.chooserOpen} onChange={this.changeResource.bind(this)} />

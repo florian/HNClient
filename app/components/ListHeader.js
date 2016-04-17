@@ -23,7 +23,8 @@ export default class ListHeader extends Component {
     onDisplayChange: React.PropTypes.func.isRequired,
     selectedStory: React.PropTypes.object,
     loading: React.PropTypes.bool.isRequired,
-    onReload: React.PropTypes.func.isRequired
+    onReload: React.PropTypes.func.isRequired,
+    failed: React.PropTypes.bool.isRequired
   }
 
   constructor (props, context) {
@@ -56,8 +57,9 @@ export default class ListHeader extends Component {
   }
 
   renderLoader () {
-    var className = `unimportantHeaderElement fa fa-refresh fa-fw ${styles.loader}`
+    var className = `fa fa-refresh fa-fw ${styles.loader}`
     if (this.props.loading) className += " fa-spin"
+    else if (!this.props.failed) className += " unimportantHeaderElement"
 
     return <i className={className} onClick={this.props.onReload} />
   }

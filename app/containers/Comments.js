@@ -3,6 +3,7 @@ import axios from 'axios'
 import styles from './Comments.styl'
 
 import {shell} from 'electron'
+import deepEqual from 'deep-equal'
 
 import CommentList from '../components/CommentList'
 import UserLink from '../components/UserLink'
@@ -44,9 +45,8 @@ export default class Comments extends Component {
 
   componentDidUpdate (prevProps, prevState) {
     // We want to (re)fetch the comments if a new story was chosen (i.e. the ID
-    // changed) or if everything is the same (i.e same state) meaning that the
-    // user clicked the current item again to reload
-    if (prevProps.id !== this.props.id || prevState === this.state) {
+    // changed)
+    if (prevProps.id !== this.props.id) {
       this.fetch()
       this.refs.container.scrollTop = 0
     }

@@ -44,6 +44,7 @@ export default class App extends Component {
           onDisplayChange={this.onDisplayChange.bind(this)}
           loading={this.state.loading}
           onReload={this.fetch.bind(this)}
+          failed={this.state.failed}
         />
 
         {this.renderChosen()}

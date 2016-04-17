@@ -59,9 +59,9 @@ export default class Resizer extends Component {
   onMouseMove (e) {
     if (this.state.clicked) {
       const diff = e.clientX - this.state.pos
-        if (this.props.onResize(diff)) {
-          this.setState({ pos: e.clientX})
-        }
+      if (diff !== 0 && this.props.onResize(diff)) {
+        this.setState({ pos: e.clientX})
+      }
     }
   }
 }

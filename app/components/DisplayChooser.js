@@ -49,7 +49,7 @@ export default class DisplayChooser extends Component {
     const story = this.props.story
     if (story === undefined) return false
 
-    var className = `storyHeaderUnimportant ${styles.options}`
+    var className = `unimportantHeaderElement ${styles.options}`
     if (this.isSelfPost()) className += " " + styles.selfPost
 
     return <span className={className}>

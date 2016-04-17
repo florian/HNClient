@@ -21,17 +21,17 @@ body
 	overflow: hidden
 	text-overflow: ellipsis
 
-.storyHeader
-	border-right: 1px solid rgba(0,0,0,.2)
-	overflow: visible
-
 	&:hover
-		.storyHeaderUnimportant
+		.unimportantHeaderElement
 			opacity: 1
 			transition: opacity .2s ease-out
 
-	.storyHeaderUnimportant
+	.unimportantHeaderElement
 		opacity: 0
+
+.storyHeader
+	border-right: 1px solid rgba(0,0,0,.2)
+	overflow: visible
 
 .commentHeader
 	right: 0

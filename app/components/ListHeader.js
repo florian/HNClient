@@ -56,7 +56,7 @@ export default class ListHeader extends Component {
   }
 
   renderLoader () {
-    var className = `storyHeaderUnimportant fa fa-refresh fa-fw ${styles.loader}`
+    var className = `unimportantHeaderElement fa fa-refresh fa-fw ${styles.loader}`
     if (this.props.loading) className += " fa-spin"
 
     return <i className={className} onClick={this.props.onReload} />

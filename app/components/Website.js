@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styles from './Website.styl'
 
+import StoryActionMenu from './StoryActionMenu'
+
 import Tooltip from 'react-tooltip'
 
 export default class StoryList extends Component {
@@ -35,13 +37,18 @@ export default class StoryList extends Component {
     if (!this.props.show) style.width = 0
 
     return <div className={styles.websiteContainer} style={style}>
-      <h2 className="header itemHeader">
+      <h2 className={`header itemHeader ${styles.header}`}>
         <div className={styles.navigation}>
           {this.renderBackButton()}
           {this.renderForwardButton()}
         </div>
 
-        {item.title}
+        <span className={styles.title}>{item.title}</span>
+
+        <StoryActionMenu
+          item={this.props.item}
+          onGoogle={this.onGoogle.bind(this)}
+        />
       </h2>
 
       <Tooltip place="bottom" type="dark" effect="solid" id="navigationGoBack">
@@ -50,6 +57,18 @@ export default class StoryList extends Component {
 
       <Tooltip place="bottom" type="dark" effect="solid" id="navigationGoForward">
         Go forward to the last website
+      </Tooltip>
+
+      <Tooltip place="bottom" type="dark" effect="solid" id="external-link">
+        Open this link in an external browser
+      </Tooltip>
+
+      <Tooltip place="bottom" type="dark" effect="solid" id="clipboard">
+        Copy this link to the clipboard
+      </Tooltip>
+
+      <Tooltip place="bottom" type="dark" effect="solid" id="google">
+        Google for this story in the embed browser
       </Tooltip>
 
       <div className={styles.webviewContainer}>
@@ -95,5 +114,9 @@ export default class StoryList extends Component {
     if (!this.state.canGoForward) className += " " + styles.disabledNavigation
 
     return <i className={className} data-tip data-for="navigationGoForward" onClick={() => this.refs.webview.goForward()} />
+  }
+
+  onGoogle () {
+    this.refs.webview.src = `https://www.google.com/search?q=${this.props.item.title}`
   }
 }

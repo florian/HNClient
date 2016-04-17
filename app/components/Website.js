@@ -75,7 +75,7 @@ export default class StoryList extends Component {
       </Tooltip>
 
       <Tooltip place="bottom" type="dark" effect="solid" id="google">
-        Google for this story in the embed browser
+        Google this story in the embed browser
       </Tooltip>
 
       <div className={styles.webviewContainer}>

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import styles from './StoryActionMenu.styl'
-
-import Tooltip from 'react-tooltip'
+import styles from './ActionMenu.styl'
 
 import {shell, clipboard} from 'electron'
 

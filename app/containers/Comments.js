@@ -6,6 +6,7 @@ import {shell} from 'electron'
 
 import CommentList from '../components/CommentList'
 import UserLink from '../components/UserLink'
+import CommentsActionMenu from '../components/CommentsActionMenu'
 
 import Tooltip from 'react-tooltip'
 
@@ -53,8 +54,12 @@ export default class Comments extends Component {
     if (!this.props.show) style.display = "none"
 
     return <div className={styles.commentContainer} style={style} ref="container">
-      <h2 className="header commentHeader">{this.getHeaderContent()}</h2>
-      <div className={styles.commentList}>
+      <h2 className="header commentHeader">
+        {this.getHeaderContent()}
+        <CommentsActionMenu item={this.state.data} />
+      </h2>
+
+      <div className={styles.commentList} onClick={this.commentClicked.bind(this)}>
         {this.renderContent()}
         {this.renderReplyButton()}
         {this.state.comments.map(this.renderComment, this)}
@@ -62,6 +67,14 @@ export default class Comments extends Component {
 
       <Tooltip place="bottom" type="dark" effect="solid" id="OP">
         Original Poster – this user submitted the story
+      </Tooltip>
+
+      <Tooltip place="bottom" type="dark" effect="solid" id="external-comments-link">
+        Open the link to all comments in an external browser
+      </Tooltip>
+
+      <Tooltip place="bottom" type="dark" effect="solid" id="commments-clipboard">
+        Copy the link to all comments
       </Tooltip>
     </div>
   }
@@ -112,5 +125,14 @@ export default class Comments extends Component {
     }).catch(response => {
       this.setState({ loading: false, failed: true })
     })
+  }
+
+  commentClicked (e) {
+    if (e.target.tagName.toLowerCase() === "a") {
+      shell.openExternal(e.target.href)
+
+      e.preventDefault()
+      e.stopPropagation()
+    }
   }
 }

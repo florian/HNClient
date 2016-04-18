@@ -14,6 +14,8 @@ export default class Comments extends Component {
   }
 
   renderPollOption ({ item, points }, i) {
+    if (!item) return false
+
     const percentage = points / this.totalVotes()
 
     return <li className={styles.option} key={i}>
@@ -30,7 +32,7 @@ export default class Comments extends Component {
     if (this.totalVotesCalculated) return this.totalVotesCalculated
 
     const poll = this.props.data
-    const res = poll.map((v, i) => v.points).reduce((a, b) => a + b)
+    const res = poll.map((v, i) => v.points).filter(p => p).reduce((a, b) => a + b)
     this.totalVotesCalculated = res
     return res
   }

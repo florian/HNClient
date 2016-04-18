@@ -8,6 +8,7 @@ import deepEqual from 'deep-equal'
 import CommentList from '../components/CommentList'
 import UserLink from '../components/UserLink'
 import CommentsActionMenu from '../components/CommentsActionMenu'
+import Poll from '../components/Poll'
 
 import Tooltip from 'react-tooltip'
 
@@ -106,7 +107,6 @@ export default class Comments extends Component {
     return content
   }
 
-
   renderComments () {
     if (this.state.loading || this.state.failed) return false
 
@@ -119,8 +119,11 @@ export default class Comments extends Component {
 
   renderContent () {
     if (!this.state.data) return false
-    const { content, user, time_ago } = this.state.data
-    if (!content) return false
+    const { content, user, time_ago, type, title } = this.state.data
+
+    if (!content && type !== "poll") return false
+
+    const label = content || title.replace(/^Poll: /i, "")
 
     return <div className={styles.selfPost}>
       <div className={styles.about}>
@@ -128,15 +131,27 @@ export default class Comments extends Component {
         –
         <span className={styles.time_ago}>{time_ago}</span>
       </div>
-      <div className={styles.content} dangerouslySetInnerHTML={{__html: content}}></div>
+
+      <div className={styles.content} dangerouslySetInnerHTML={{__html: label}}></div>
+
+      {this.renderPoll()}
     </div>
+  }
+
+  renderPoll () {
+    if (this.state.data.type !== "poll") return false
+    return <Poll data={this.state.data.poll} />
   }
 
   renderReplyButton () {
     const isFirst = !this.state.loading && this.state.comments.length === 0
 
+    var label = "Click here to open this story in the browser to reply"
+    if (this.state.data.type === "poll") label += " or to vote in the poll"
+    label += "…"
+
     return <div className={styles.pseudoTextarea} onClick={this.openCommentsUrl.bind(this)}>
-      <p>Click here to open this story in the browser to reply…</p>
+      <p>{label}</p>
       {isFirst ? <p>You can be the first to start the discussion!</p> : ""}
     </div>
   }
@@ -153,6 +168,7 @@ export default class Comments extends Component {
     this.setState({ loading: true, failed: false })
 
     axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then(response => {
+    // axios.get(`https://node-hnapi.herokuapp.com/item/126809`).then(response => {
       this.setState({ comments: response.data.comments, count: response.data.comments_count, data: response.data, loading: false, failed: false })
     }).catch(response => {
       this.setState({ loading: false, failed: true })

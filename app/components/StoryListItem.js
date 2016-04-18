@@ -16,8 +16,8 @@ export default class StoryListItem extends Component {
     if (!item.domain) className += " " + styles.selfPost
 
     return (
-      <li className={className} title={item.title} onClick={this.props.onClick}>
-        <div className={styles.title}>{item.title}</div>
+      <li className={className} onClick={this.props.onClick}>
+        <div className={styles.title} title={item.title}>{item.title}</div>
         <div className={styles.domain}>{item.domain}</div>
         <div className={styles.details}>{item.points} points by {item.user} {item.time_ago}</div>
 

@@ -29,10 +29,17 @@ export default class App extends Component {
     this.fetch()
     key("k", this.selectPrev.bind(this))
     key("j", this.selectNext.bind(this))
+    key("l", this.cycleDisplay.bind(this))
   }
 
   componentDidUpdate (prevProps, prevState) {
     if (prevState.resource !== this.state.resource) this.fetch()
+  }
+
+  componentWillUnmount () {
+    key.unbind("k")
+    key.unbind("j")
+    key.unbind("l")
   }
 
   render() {
@@ -102,11 +109,13 @@ export default class App extends Component {
   }
 
   selectPrev () {
+    console.log("p")
     const selected = Math.max(this.state.selected - 1, 0)
     this.setState({ selected })
   }
 
   selectNext () {
+    console.log("n")
     const selected = Math.min(this.state.selected + 1, this.state.data.length - 1)
     this.setState({ selected })
   }
@@ -136,6 +145,17 @@ export default class App extends Component {
   }
 
   onDisplayChange (display) {
+    this.setState({ display })
+  }
+
+  cycleDisplay () {
+    const current = this.state.display
+    var display
+
+    if (current == "both") display = "link"
+    else if (current == "link") display = "comments"
+    else if (current == "comments") display = "link"
+
     this.setState({ display })
   }
 

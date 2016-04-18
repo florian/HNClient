@@ -15,7 +15,8 @@ export default class StoryList extends Component {
     onDisplayChange: React.PropTypes.func.isRequired,
     loading: React.PropTypes.bool.isRequired,
     onReload: React.PropTypes.func.isRequired,
-    failed: React.PropTypes.bool.isRequired
+    failed: React.PropTypes.bool.isRequired,
+    onWaypoint: React.PropTypes.func.isRequired
   }
 
   constructor (props, context) {
@@ -30,7 +31,7 @@ export default class StoryList extends Component {
     var className = styles.listContainer
     if (this.props.selected === undefined) className += " " + styles.nothingChosen
 
-    return <div className={className}>
+    return <div className={className} onScroll={this.onScroll.bind(this)}>
       <ListHeader
         onHamburger={this.toggleChooser.bind(this)}
         enabled={this.state.chooserOpen} resource={this.props.resource}
@@ -43,7 +44,7 @@ export default class StoryList extends Component {
 
       <ResourceChooser open={this.state.chooserOpen} onChange={this.changeResource.bind(this)} />
 
-      <ol className={`${styles.storyList} ${this.state.chooserOpen ? styles.listInBackground : ""}`}>
+      <ol ref="container" className={`${styles.storyList} ${this.state.chooserOpen ? styles.listInBackground : ""}`}>
       {this.props.data.map(this.renderItem, this)}
       </ol>
     </div>
@@ -51,7 +52,7 @@ export default class StoryList extends Component {
 
   renderItem (item, i) {
     const isSelected = i === this.props.selected
-    return <StoryListItem key={item.id} item={item} isSelected={isSelected} onClick={() => this.props.changeSelection(i)} />
+    return <StoryListItem i={i} key={item.id} item={item} isSelected={isSelected} onClick={() => this.props.changeSelection(i)} />
   }
 
   toggleChooser () {
@@ -61,5 +62,16 @@ export default class StoryList extends Component {
   changeResource (key) {
     this.setState({ chooserOpen: false })
     this.props.onResourceChange(key)
+  }
+
+  onScroll () {
+    const container = this.refs.container
+    const scrollTop = container.scrollTop
+    // This is the maximum value scrollTop can have
+    const maxScrollTop = container.scrollHeight - container.clientHeight
+
+    // We want to trigger the Waypoint event if the user scrolled past 2/3 of
+    // the storys
+    if (scrollTop >= maxScrollTop * 2/3) this.props.onWaypoint()
   }
 }

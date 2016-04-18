@@ -16,6 +16,7 @@ export default class App extends Component {
       failed: false,
       resource: "news",
       data: [],
+      loadedSecond: false, // Was the second top stories page loaded?
       selected: undefined,
       websiteWidth: 60, // in percent
       display: "both" // both, link, comments
@@ -45,6 +46,7 @@ export default class App extends Component {
           loading={this.state.loading}
           onReload={this.fetch.bind(this)}
           failed={this.state.failed}
+          onWaypoint={this.fetchSecond.bind(this)}
         />
 
         {this.renderChosen()}
@@ -127,7 +129,19 @@ export default class App extends Component {
     this.setState({ loading: true, failed: false })
 
     axios.get(`https://node-hnapi.herokuapp.com/${this.state.resource}`).then(response => {
-      this.setState({ data: response.data, loading: false, selected: 0 })
+      this.setState({ data: response.data, loading: false, selected: 0, loadedSecond: false })
+    }).catch(response => {
+      this.setState({ failed: true, loading: false })
+    })
+  }
+
+  fetchSecond () {
+    if (this.state.resource !== "news" || this.state.loadedSecond) return false
+
+    this.setState({ loading: true, failed: false, loadedSecond: true })
+
+    axios.get(`https://node-hnapi.herokuapp.com/news2`).then(response => {
+      this.setState({ data: this.state.data.concat(response.data), loading: false })
     }).catch(response => {
       this.setState({ failed: true, loading: false })
     })

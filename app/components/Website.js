@@ -23,7 +23,8 @@ export default class StoryList extends Component {
 
     this.state = {
       canGoBack: false,
-      canGoForward: false
+      canGoForward: false,
+      loading: false
     }
   }
 
@@ -44,6 +45,7 @@ export default class StoryList extends Component {
           {this.renderBackButton()}
           {this.renderForwardButton()}
         </div>
+        {this.renderLoadingButton()}
 
         <span className={styles.title}>{item.title}</span>
 
@@ -105,7 +107,8 @@ export default class StoryList extends Component {
   updateNavigation () {
     this.setState({
       canGoBack: this.refs.webview.canGoBack(),
-      canGoForward: this.refs.webview.canGoForward()
+      canGoForward: this.refs.webview.canGoForward(),
+      loading: this.refs.webview.isLoading()
     })
   }
 
@@ -121,6 +124,13 @@ export default class StoryList extends Component {
     if (!this.state.canGoForward) className += " " + styles.disabledNavigation
 
     return <i className={className} data-tip data-for="navigationGoForward" onClick={() => this.refs.webview.goForward()} />
+  }
+
+  renderLoadingButton () {
+    var className = `fa fa-refresh fa-spin ${styles.loading}`
+    if (!this.state.loading) className += " " + styles.notLoading
+
+    return <i className={className} />
   }
 
   onGoogle () {

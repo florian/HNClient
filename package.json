@@ -96,9 +96,9 @@
     "webpack-target-electron-renderer": "^0.4.0"
   },
   "dependencies": {
- 	"deep-equal": "^1.0.1",
     "axios": "^0.9.1",
     "css-modules-require-hook": "^4.0.0",
+    "deep-equal": "^1.0.1",
     "electron-debug": "^0.5.2",
     "font-awesome": "^4.5.0",
     "postcss": "^5.0.19",
@@ -108,6 +108,7 @@
     "react-router": "^2.0.1",
     "react-router-redux": "^4.0.0",
     "react-tooltip": "^1.2.0",
+    "react-waypoint": "^2.0.1",
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
     "source-map-support": "^0.4.0"

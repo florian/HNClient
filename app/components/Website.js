@@ -32,12 +32,14 @@ export default class StoryList extends Component {
     const item = this.props.item
     const style = { width: `calc((100% - 400px) * ${this.props.width} / 100)` }
 
+    var className = styles.websiteContainer
     // `!this.props.show` is true if only the comments will be displayed. However in that case we still
     // want to render the Website with width 0. If we only hide it then the
     // WebView won't properly rerender if we go from displaying website+comments
     // to only the comments to only the website to website+comments.
-    // We render it at all to make sure the website is preloaded.
-    if (!this.props.show) style.width = 0
+    // We render it at all to make sure the website is preloaded. This is the
+    // approach suggested in the Electron docs.
+    if (!this.props.show) className += " " + styles.hidden
 
     return <div className={styles.websiteContainer} style={style}>
       <h2 className={`header itemHeader ${styles.header}`}>

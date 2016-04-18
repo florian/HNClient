@@ -62,6 +62,7 @@ export default class StoryList extends Component {
   changeResource (key) {
     this.setState({ chooserOpen: false })
     this.props.onResourceChange(key)
+    this.refs.container.scrollTop = 0
   }
 
   onScroll () {

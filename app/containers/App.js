@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import axios from 'axios'
 import styles from './App.styl'
 
+import key from 'keymaster'
+
 import StoryList from '../components/StoryList'
 import Comments from './Comments'
 import Website from '../components/Website'
@@ -25,6 +27,8 @@ export default class App extends Component {
 
   componentDidMount () {
     this.fetch()
+    key("k", this.selectPrev.bind(this))
+    key("j", this.selectNext.bind(this))
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -95,6 +99,16 @@ export default class App extends Component {
 
   changeSelection (i) {
     this.setState({ selected: i })
+  }
+
+  selectPrev () {
+    const selected = Math.max(this.state.selected - 1, 0)
+    this.setState({ selected })
+  }
+
+  selectNext () {
+    const selected = Math.min(this.state.selected + 1, this.state.data.length - 1)
+    this.setState({ selected })
   }
 
   changeResource (key) {

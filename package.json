@@ -79,6 +79,7 @@
     "deep-equal": "^1.0.1",
     "electron-debug": "^0.5.2",
     "font-awesome": "^4.5.0",
+    "keymaster": "^1.6.2",
     "node-touch": "0.0.3",
     "postcss": "^5.0.19",
     "react": "^0.14.7",

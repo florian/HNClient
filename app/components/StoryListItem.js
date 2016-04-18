@@ -19,7 +19,7 @@ export default class StoryListItem extends Component {
     if (readStories.contains(this.props.item.id) || this.props.isSelected) className += " " + styles.alreadyRead
 
     return (
-      <li className={className} onClick={this.onClick.bind(this)}>
+      <li className={className} ref="container" onClick={this.onClick.bind(this)}>
         <div className={styles.title} title={item.title}>{item.title}</div>
         <div className={styles.domain}>{item.domain}</div>
         <div className={styles.details}>{item.points} points by {item.user} {item.time_ago}</div>
@@ -35,6 +35,7 @@ export default class StoryListItem extends Component {
 
   componentDidUpdate () {
     this.markReadIfSelected()
+    if (this.props.isSelected) this.refs.container.scrollIntoViewIfNeeded(false)
   }
 
   markReadIfSelected () {

@@ -1,3 +1,5 @@
+import readStories from '../store/ReadStories'
+
 import React, { Component } from 'react'
 import styles from './StoryListItem.styl'
 
@@ -14,9 +16,10 @@ export default class StoryListItem extends Component {
     var className = styles.storyItem
     if (this.props.isSelected) className += " " + styles.selected
     if (!item.domain) className += " " + styles.selfPost
+    if (readStories.contains(this.props.item.id) || this.props.isSelected) className += " " + styles.alreadyRead
 
     return (
-      <li className={className} onClick={this.props.onClick}>
+      <li className={className} onClick={this.onClick.bind(this)}>
         <div className={styles.title} title={item.title}>{item.title}</div>
         <div className={styles.domain}>{item.domain}</div>
         <div className={styles.details}>{item.points} points by {item.user} {item.time_ago}</div>
@@ -24,5 +27,26 @@ export default class StoryListItem extends Component {
         <div className={styles.commentCount}>{item.comments_count}</div>
       </li>
     )
+  }
+
+  componentDidMount () {
+    this.markReadIfSelected()
+  }
+
+  componentDidUpdate () {
+    this.markReadIfSelected()
+  }
+
+  markReadIfSelected () {
+    if (this.props.isSelected) this.markRead()
+  }
+
+  markRead () {
+    readStories.add(this.props.item.id)
+  }
+
+  onClick () {
+    this.props.onClick()
+    this.markRead()
   }
 }

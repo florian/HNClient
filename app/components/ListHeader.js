@@ -21,6 +21,8 @@ export default class ListHeader extends Component {
     onHamburger: React.PropTypes.func.isRequired,
     enabled: React.PropTypes.bool.isRequired,
     onDisplayChange: React.PropTypes.func.isRequired,
+    display: React.PropTypes.string.isRequired,
+    isSelfPost: React.PropTypes.bool.isRequired,
     selectedStory: React.PropTypes.object,
     loading: React.PropTypes.bool.isRequired,
     onReload: React.PropTypes.func.isRequired,
@@ -44,9 +46,16 @@ export default class ListHeader extends Component {
       <button className={`${styles.hamburgerContainer} ${this.state.enabled ? styles.open : ""}`} onClick={this.toggle.bind(this)}>
         <div className={styles.hamburger} />
       </button>
+
       {this.renderLoader()}
       {resources[this.props.resource]}
-      <DisplayChooser onChange={this.props.onDisplayChange} story={this.props.selectedStory} />
+
+      <DisplayChooser
+        onChange={this.props.onDisplayChange}
+        story={this.props.selectedStory}
+        display={this.props.display}
+        isSelfPost={this.props.isSelfPost}
+      />
     </h2>
   }
 

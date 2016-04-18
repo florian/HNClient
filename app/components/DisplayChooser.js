@@ -17,32 +17,13 @@ const DisplayOption = (props) => {
 export default class DisplayChooser extends Component {
   static propTypes = {
     onChange: React.PropTypes.func.isRequired,
-    story: React.PropTypes.object
+    story: React.PropTypes.object,
+      display: React.PropTypes.string.isRequired,
+      isSelfPost: React.PropTypes.bool.isRequired
   }
 
   constructor (props, context) {
     super(props, context)
-
-    this.state = {
-      selected: "both"
-    }
-  }
-
-  componentDidMount () {
-    this.ensureCorrectDisplay()
-  }
-
-  componentDidUpdate () {
-    this.ensureCorrectDisplay()
-  }
-
-  // If the selected story turns out to be a self post, then this means we can
-  // only display the comment section, so we'll need to ensure that "comments"
-  // is the current display selection.
-  ensureCorrectDisplay () {
-    if (this.props.story && this.isSelfPost() && this.state.selected !== "comments") {
-      this.changeSelection("comments")
-    }
   }
 
   render () {
@@ -50,27 +31,32 @@ export default class DisplayChooser extends Component {
     if (story === undefined) return false
 
     var className = `unimportantHeaderElement ${styles.options}`
-    if (this.isSelfPost()) className += " " + styles.selfPost
+    var display = this.props.display
+
+    if (this.props.isSelfPost) {
+      className += " " + styles.selfPost
+      display = "comments"
+    }
 
     return <span className={className}>
-      <DisplayOption name="both" onClick={this.changeSelection.bind(this)} selected={this.state.selected}>
+      <DisplayOption name="both" onClick={this.changeSelection.bind(this)} selected={display}>
         <i className="fa fa-link" aria-hidden="true"></i>
         <i className="fa fa-comment-o" aria-hidden="true"></i>
       </DisplayOption>
 
       <Tooltip place="bottom" type="dark" effect="solid" id="both">
-        {this.isSelfPost() ? "This is a self post, there are only comments" : "Show both, website and comments, next to each other"}
+        {this.props.isSelfPost ? "This is a self post, there are only comments" : "Show both, website and comments, next to each other"}
       </Tooltip>
 
-      <DisplayOption name="link" onClick={this.changeSelection.bind(this)} selected={this.state.selected}>
+      <DisplayOption name="link" onClick={this.changeSelection.bind(this)} selected={display}>
         <i className="fa fa-link" aria-hidden="true"></i>
       </DisplayOption>
 
       <Tooltip place="bottom" type="dark" effect="solid" id="link">
-      {this.isSelfPost() ? "This is a self post, there are only comments" : "Show only the website"}
+      {this.props.isSelfPost ? "This is a self post, there are only comments" : "Show only the website"}
       </Tooltip>
 
-      <DisplayOption name="comments" onClick={this.changeSelection.bind(this)} selected={this.state.selected}>
+      <DisplayOption name="comments" onClick={this.changeSelection.bind(this)} selected={display}>
         <i className="fa fa-comment-o" aria-hidden="true"></i>
       </DisplayOption>
 
@@ -81,13 +67,6 @@ export default class DisplayChooser extends Component {
   }
 
   changeSelection (key) {
-    if (!this.isSelfPost() || key === "comments") {
-      this.setState({ selected: key })
-      this.props.onChange(key)
-    }
-  }
-
-  isSelfPost () {
-    return !this.props.story.domain
+    this.props.onChange(key)
   }
 }

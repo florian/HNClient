@@ -13,6 +13,8 @@ export default class StoryList extends Component {
     onResourceChange: React.PropTypes.func.isRequired,
     resource: React.PropTypes.string.isRequired,
     onDisplayChange: React.PropTypes.func.isRequired,
+    display: React.PropTypes.string.isRequired,
+    isSelfPost: React.PropTypes.bool.isRequired,
     loading: React.PropTypes.bool.isRequired,
     onReload: React.PropTypes.func.isRequired,
     failed: React.PropTypes.bool.isRequired,
@@ -36,6 +38,8 @@ export default class StoryList extends Component {
         onHamburger={this.toggleChooser.bind(this)}
         enabled={this.state.chooserOpen} resource={this.props.resource}
         onDisplayChange={this.props.onDisplayChange}
+        display={this.props.display}
+        isSelfPost={this.props.isSelfPost}
         selectedStory={this.props.data[this.props.selected]}
         loading={this.props.loading}
         onReload={this.props.onReload}

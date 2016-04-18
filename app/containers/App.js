@@ -54,6 +54,8 @@ export default class App extends Component {
           onResourceChange={this.changeResource.bind(this)}
           resource={this.state.resource}
           onDisplayChange={this.onDisplayChange.bind(this)}
+          display={this.state.display}
+          isSelfPost={this.isSelfPost()}
           loading={this.state.loading}
           onReload={this.fetch.bind(this)}
           failed={this.state.failed}
@@ -77,7 +79,8 @@ export default class App extends Component {
     const item = this.getChosen()
     if (!item) return false
 
-    const display = this.state.display
+    var display = this.state.display
+    if (this.isSelfPost()) display = "comments"
 
     return <div>
       <Website item={item}
@@ -109,13 +112,11 @@ export default class App extends Component {
   }
 
   selectPrev () {
-    console.log("p")
     const selected = Math.max(this.state.selected - 1, 0)
     this.setState({ selected })
   }
 
   selectNext () {
-    console.log("n")
     const selected = Math.min(this.state.selected + 1, this.state.data.length - 1)
     this.setState({ selected })
   }
@@ -145,6 +146,7 @@ export default class App extends Component {
   }
 
   onDisplayChange (display) {
+    console.log("app.onDisplayChange()")
     this.setState({ display })
   }
 
@@ -179,5 +181,12 @@ export default class App extends Component {
     }).catch(response => {
       this.setState({ failed: true, loading: false })
     })
+  }
+
+  isSelfPost () {
+    var chosen = this.getChosen()
+
+    if (chosen) return !chosen.domain
+    else return false
   }
 }

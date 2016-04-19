@@ -119,6 +119,8 @@ function pack(plat, arch, cb) {
     out: `release/${plat}-${arch}`
   });
 
+  console.log(opts)
+
   packager(opts, cb);
 }
 

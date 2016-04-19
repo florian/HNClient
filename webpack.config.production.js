@@ -23,18 +23,24 @@ const config = {
       ...baseConfig.module.loaders,
 
       {
-        test: /\.global\.css$/,
+        test: /\.global\.styl$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader'
+          [
+            'css-loader',
+            'stylus-loader'
+          ]
         )
       },
 
       {
-        test: /^((?!\.global).)*\.css$/,
+        test: /^((?!\.global).)*\.styl$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+          [
+            'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+            'stylus-loader'
+          ]
         )
       }
     ]

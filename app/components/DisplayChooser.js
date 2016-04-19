@@ -18,8 +18,8 @@ export default class DisplayChooser extends Component {
   static propTypes = {
     onChange: React.PropTypes.func.isRequired,
     story: React.PropTypes.object,
-      display: React.PropTypes.string.isRequired,
-      isSelfPost: React.PropTypes.bool.isRequired
+    display: React.PropTypes.string.isRequired,
+    isSelfPost: React.PropTypes.bool.isRequired
   }
 
   constructor (props, context) {
@@ -39,7 +39,7 @@ export default class DisplayChooser extends Component {
     }
 
     return <span className={className}>
-      <DisplayOption name="both" onClick={this.changeSelection.bind(this)} selected={display}>
+      <DisplayOption name="both" onClick={this.props.onChange} selected={display}>
         <i className="fa fa-link" aria-hidden="true"></i>
         <i className="fa fa-comment-o" aria-hidden="true"></i>
       </DisplayOption>
@@ -48,7 +48,7 @@ export default class DisplayChooser extends Component {
         {this.props.isSelfPost ? "This is a self post, there are only comments" : "Show both, website and comments, next to each other"}
       </Tooltip>
 
-      <DisplayOption name="link" onClick={this.changeSelection.bind(this)} selected={display}>
+      <DisplayOption name="link" onClick={this.props.onChange} selected={display}>
         <i className="fa fa-link" aria-hidden="true"></i>
       </DisplayOption>
 
@@ -56,7 +56,7 @@ export default class DisplayChooser extends Component {
       {this.props.isSelfPost ? "This is a self post, there are only comments" : "Show only the website"}
       </Tooltip>
 
-      <DisplayOption name="comments" onClick={this.changeSelection.bind(this)} selected={display}>
+      <DisplayOption name="comments" onClick={this.props.onChange} selected={display}>
         <i className="fa fa-comment-o" aria-hidden="true"></i>
       </DisplayOption>
 
@@ -64,9 +64,5 @@ export default class DisplayChooser extends Component {
         Show only the comments
       </Tooltip>
     </span>
-  }
-
-  changeSelection (key) {
-    this.props.onChange(key)
   }
 }

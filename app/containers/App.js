@@ -146,7 +146,6 @@ export default class App extends Component {
   }
 
   onDisplayChange (display) {
-    console.log("app.onDisplayChange()")
     this.setState({ display })
   }
 

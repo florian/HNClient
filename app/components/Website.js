@@ -84,7 +84,7 @@ export default class StoryList extends Component {
 
       <div className={styles.webviewContainer}>
         <webview
-          src={item.url}
+          src={this.getURL()}
           ref="webview"
         />
       </div>
@@ -133,6 +133,17 @@ export default class StoryList extends Component {
     if (!this.state.loading) className += " " + styles.notLoading
 
     return <i className={className} />
+  }
+
+  // For PDF files we want to link to Google Doc's embed PDF viewer. The PDF
+  // detecting isn't perfect but it's faster this way than to first download the
+  // PDF, detect the filetype and then send it to Google Docs
+  getURL () {
+    var url = this.props.item.url
+
+    if (/\.pdf/i.test(url)) url = `http://docs.google.com/gview?url=${window.encodeURI(url)}&embedded=true`
+
+    return url
   }
 
   onGoogle () {

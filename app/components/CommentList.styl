@@ -62,8 +62,16 @@
 	padding: 5px
 
 .selected
-	> .contentWrapper > .content
-		background-color: #E2E2E2
+	> .contentWrapper
+		> .about
+			background-color: #CC6904
+			transition: background-color .3s ease-out
+
+		> .content
+			background-color: #F1ECEC
+			border: 1px solid rgba(0,0,0,.35)
+			border-top-color: rgba(0,0,0,.2)
+			transition: background-color .3s ease-out
 
 .deletedContent
 	font-style: italic

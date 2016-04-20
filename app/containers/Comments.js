@@ -220,8 +220,8 @@ export default class Comments extends Component {
     var result = []
 
     for (let comment of data.comments) {
+      result.push(comment)
       if (!comment.isFolded) {
-        result.push(comment)
         result = result.concat(this.flattenComments(comment))
       }
     }

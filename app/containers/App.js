@@ -27,9 +27,9 @@ export default class App extends Component {
 
   componentDidMount () {
     this.fetch()
-    key("k", this.selectPrev.bind(this))
-    key("j", this.selectNext.bind(this))
-    key("l", this.cycleDisplay.bind(this))
+    key("k", "all", this.selectPrev.bind(this))
+    key("j", "all", this.selectNext.bind(this))
+    key("l", "all", this.cycleDisplay.bind(this))
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -37,9 +37,9 @@ export default class App extends Component {
   }
 
   componentWillUnmount () {
-    key.unbind("k")
-    key.unbind("j")
-    key.unbind("l")
+    key.unbind("k", "all")
+    key.unbind("j", "all")
+    key.unbind("l", "all")
   }
 
   render() {

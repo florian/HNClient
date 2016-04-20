@@ -45,13 +45,13 @@ export default class Comments extends Component {
   componentDidMount () {
     this.fetch()
 
-    key("m", this.selectPrev.bind(this))
-    key("n", this.selectNext.bind(this))
+    key("m", "all", this.selectPrev.bind(this))
+    key("n", "all", this.selectNext.bind(this))
   }
 
   componentWillUnmount () {
-    key.unbind("m")
-    key.unbind("n")
+    key.unbind("m", "all")
+    key.unbind("n", "all")
   }
 
   componentDidUpdate (prevProps, prevState) {

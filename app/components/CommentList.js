@@ -3,6 +3,7 @@ import styles from './CommentList.styl'
 
 import UserLink from './UserLink.js'
 
+import key from 'keymaster'
 import scrollIntoView from 'scroll-iv'
 
 import { shell, clipboard } from 'electron'
@@ -91,10 +92,31 @@ export default class CommentList extends Component {
     />
   }
 
-  componentDidUpdate () {
-    if (this.isSelected()) {
-      scrollIntoView(this.refs.container)
-    }
+  bindEnter () {
+    key("enter", `comment-${this.props.data.id}`, this.toggleFolded.bind(this))
+    key.setScope(`comment-${this.props.data.id}`)
+  }
+
+  unbindEnter () {
+    key.unbind("enter", `comment-${this.props.data.id}`)
+  }
+
+  componentDidMount () {
+    if (this.isSelected()) this.bindEnter()
+  }
+
+  componentWillUnmount() {
+    if (this.isSelected()) this.unbindEnter()
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.isSelected()) scrollIntoView(this.refs.container)
+
+    // If it just got selected
+    if (prevProps.selectedId !== prevProps.data.id && this.isSelected()) this.bindEnter()
+
+    // If it just lost selection
+    if (prevProps.selectedId === prevProps.data.id && !this.isSelected()) this.unbindEnter()
   }
 
   openReply (e) {

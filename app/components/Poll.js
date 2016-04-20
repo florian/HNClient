@@ -29,11 +29,8 @@ export default class Comments extends Component {
   }
 
   totalVotes () {
-    if (this.totalVotesCalculated) return this.totalVotesCalculated
-
     const poll = this.props.data
     const res = poll.map((v, i) => v.points).filter(p => p).reduce((a, b) => a + b)
-    this.totalVotesCalculated = res
     return res
   }
 }

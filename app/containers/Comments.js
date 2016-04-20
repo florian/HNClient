@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import axios from 'axios'
 import styles from './Comments.styl'
 
+import key from 'keymaster'
+
 import {shell} from 'electron'
 import deepEqual from 'deep-equal'
 
@@ -35,13 +37,23 @@ export default class Comments extends Component {
       loading: true,
       failed: false,
       comments: [],
+      flattendComments: [],
       count: undefined,
-      data: {}
+      data: { comments: [] },
+      selected: 0 // The index that says which element of `flattendComments` is selected
     }
   }
 
   componentDidMount () {
     this.fetch()
+
+    key("m", this.selectPrev.bind(this))
+    key("n", this.selectNext.bind(this))
+  }
+
+  componentWillUnmount () {
+    key.unbind("m")
+    key.unbind("n")
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -109,6 +121,7 @@ export default class Comments extends Component {
 
   renderComments () {
     if (this.state.loading || this.state.failed) return false
+    this.selectedId = this.getSelectedId()
 
     return <div className={styles.commentList} onClick={this.commentClicked.bind(this)}>
       {this.renderContent()}
@@ -157,7 +170,7 @@ export default class Comments extends Component {
   }
 
   renderComment (comment, i) {
-    return <CommentList data={comment} topId={this.props.id} OP={this.state.data.user} key={comment.id} />
+    return <CommentList data={comment} topId={this.props.id} selectedId={this.selectedId}  OP={this.state.data.user} key={comment.id} />
   }
 
   openCommentsUrl () {
@@ -169,7 +182,14 @@ export default class Comments extends Component {
 
     axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then(response => {
     // axios.get(`https://node-hnapi.herokuapp.com/item/3717754`).then(response => {
-      this.setState({ comments: response.data.comments, count: response.data.comments_count, data: response.data, loading: false, failed: false })
+      this.setState({
+        comments: response.data.comments,
+        count: response.data.comments_count,
+        data: response.data,
+        flattendComments: this.flattenComments(response.data),
+        loading: false,
+        failed: false
+      })
     }).catch(response => {
       this.setState({ loading: false, failed: true })
     })
@@ -182,5 +202,52 @@ export default class Comments extends Component {
       e.preventDefault()
       e.stopPropagation()
     }
+  }
+
+  flattenComments (data) {
+    var result = []
+
+    for (let comment of data.comments) {
+      result.push(comment)
+      result = result.concat(this.flattenComments(comment))
+    }
+
+    return result
+  }
+
+  getSelectedId () {
+    return this.state.flattendComments[this.state.selected].id
+
+    // const item = getCommentByPath(this.state.selected)
+    // return item ? Number(item.id) : undefined
+  }
+
+  getCommentByPath (path) {
+    // const state = this.state
+    // var comments = state.data
+    // const path = state.selected
+    //
+    // for (let i of path) {
+    //   if (!comments || comments.length <= i) return undefined
+    //   comments = comments.comments[i]
+    // }
+    //
+    // return comments
+  }
+
+  selectPrev () {
+    console.log("selectPrev()")
+    const selected = Math.max(this.state.selected - 1, 0)
+    this.setState({ selected })
+    // this.refs.container.scrollTop -= 50 // Ugly hack to make sure it's below the header and there's still some padding
+    console.log(selected)
+  }
+
+  selectNext () {
+    console.log("selectNext()")
+    const selected = Math.min(this.state.selected + 1, this.state.flattendComments.length - 1)
+    this.setState({ selected })
+    // this.refs.container.scrollTop -= 50 // Ugly hack to make sure it's below the header and there's still some padding
+    console.log(selected)
   }
 }

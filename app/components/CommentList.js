@@ -12,7 +12,8 @@ export default class CommentList extends Component {
         React.PropTypes.number,
         React.PropTypes.string
     ]).isRequired,
-    OP: React.PropTypes.string.isRequired
+    OP: React.PropTypes.string.isRequired,
+    selectedId: React.PropTypes.number
   }
 
   constructor (props, context) {
@@ -25,11 +26,13 @@ export default class CommentList extends Component {
 
   render () {
     const data = this.props.data
-
     const foldedClass = this.state.folded ? styles.folded : ""
-    const className = `${foldedClass}`
+    var className = `${foldedClass}`
 
-    return <div className={className}>
+    const isSelected = this.isSelected()
+    if (isSelected) className += " " + styles.selected
+
+    return <div className={className} ref="container">
       <div className={styles.contentWrapper}>
         <div className={styles.about} onClick={this.toggleFolded.bind(this)}>
           <div className={styles.aboutItem}>
@@ -75,7 +78,13 @@ export default class CommentList extends Component {
   }
 
   renderChild (item) {
-    return <CommentList data={item} topId={this.props.topId} OP={this.props.OP} key={item.id} />
+    return <CommentList data={item} topId={this.props.topId} selectedId={this.props.selectedId} OP={this.props.OP} key={item.id} />
+  }
+
+  componentDidUpdate () {
+    if (this.isSelected()) {
+      this.refs.container.scrollIntoView()//IfNeeded()
+    }
   }
 
   openReply (e) {
@@ -122,5 +131,9 @@ export default class CommentList extends Component {
     })
 
     return count + this.getSubCommentsCount(nextComments)
+  }
+
+  isSelected () {
+    return this.props.selectedId === this.props.data.id
   }
 }

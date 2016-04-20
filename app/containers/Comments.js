@@ -5,7 +5,6 @@ import styles from './Comments.styl'
 import key from 'keymaster'
 
 import {shell} from 'electron'
-import deepEqual from 'deep-equal'
 
 import CommentList from '../components/CommentList'
 import UserLink from '../components/UserLink'
@@ -37,7 +36,6 @@ export default class Comments extends Component {
       loading: true,
       failed: false,
       comments: [],
-      flattendComments: [],
       count: undefined,
       data: { comments: [] },
       selected: 0 // The index that says which element of `flattendComments` is selected
@@ -170,7 +168,14 @@ export default class Comments extends Component {
   }
 
   renderComment (comment, i) {
-    return <CommentList data={comment} topId={this.props.id} selectedId={this.selectedId}  OP={this.state.data.user} key={comment.id} />
+    return <CommentList
+      key={comment.id}
+      data={comment}
+      topId={this.props.id}
+      selectedId={this.selectedId}
+      OP={this.state.data.user}
+      onFold={this.onFold.bind(this)}
+    />
   }
 
   openCommentsUrl () {
@@ -182,13 +187,20 @@ export default class Comments extends Component {
 
     axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then(response => {
     // axios.get(`https://node-hnapi.herokuapp.com/item/3717754`).then(response => {
+
+      // These values are not part of the component state because they don't
+      // influence render itself. They are used by functions like selectPrev/selectNext
+      // that have their own state properties
+      this.commentData = response.data
+      this.flattendComments = this.flattenComments(this.commentData)
+
       this.setState({
         comments: response.data.comments,
         count: response.data.comments_count,
         data: response.data,
-        flattendComments: this.flattenComments(response.data),
         loading: false,
-        failed: false
+        failed: false,
+        selected: 0
       })
     }).catch(response => {
       this.setState({ loading: false, failed: true })
@@ -208,46 +220,48 @@ export default class Comments extends Component {
     var result = []
 
     for (let comment of data.comments) {
-      result.push(comment)
-      result = result.concat(this.flattenComments(comment))
+      if (!comment.isFolded) {
+        result.push(comment)
+        result = result.concat(this.flattenComments(comment))
+      }
     }
 
     return result
   }
 
   getSelectedId () {
-    return this.state.flattendComments[this.state.selected].id
-
-    // const item = getCommentByPath(this.state.selected)
-    // return item ? Number(item.id) : undefined
-  }
-
-  getCommentByPath (path) {
-    // const state = this.state
-    // var comments = state.data
-    // const path = state.selected
-    //
-    // for (let i of path) {
-    //   if (!comments || comments.length <= i) return undefined
-    //   comments = comments.comments[i]
-    // }
-    //
-    // return comments
+    return this.flattendComments ? this.flattendComments[this.state.selected].id : undefined
   }
 
   selectPrev () {
-    console.log("selectPrev()")
     const selected = Math.max(this.state.selected - 1, 0)
     this.setState({ selected })
-    // this.refs.container.scrollTop -= 50 // Ugly hack to make sure it's below the header and there's still some padding
-    console.log(selected)
   }
 
   selectNext () {
-    console.log("selectNext()")
-    const selected = Math.min(this.state.selected + 1, this.state.flattendComments.length - 1)
+    const selected = Math.min(this.state.selected + 1, this.flattendComments.length - 1)
     this.setState({ selected })
-    // this.refs.container.scrollTop -= 50 // Ugly hack to make sure it's below the header and there's still some padding
-    console.log(selected)
+  }
+
+  onFold (id, isFolded) {
+    this.setFoldedInCommentData(this.commentData, id, isFolded)
+    this.flattendComments = this.flattenComments(this.commentData)
+  }
+
+  // Recursively search for `id` in `commentData` and then set it to `isFolded`
+  setFoldedInCommentData (commentData, id, isFolded) {
+    commentData.comments.forEach((item, i) => {
+      if (id === item.id) {
+        item.isFolded = isFolded
+      } else {
+        item.comments.forEach((child) => {
+          if (id === child.id) {
+            child.isFolded = isFolded
+          }
+
+          this.setFoldedInCommentData(child, id, isFolded)
+        })
+      }
+    })
   }
 }

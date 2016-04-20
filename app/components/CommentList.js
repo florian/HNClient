@@ -3,6 +3,8 @@ import styles from './CommentList.styl'
 
 import UserLink from './UserLink.js'
 
+import scrollIntoView from 'scroll-iv'
+
 import { shell, clipboard } from 'electron'
 
 export default class CommentList extends Component {
@@ -13,7 +15,8 @@ export default class CommentList extends Component {
         React.PropTypes.string
     ]).isRequired,
     OP: React.PropTypes.string.isRequired,
-    selectedId: React.PropTypes.number
+    selectedId: React.PropTypes.number,
+    onFold: React.PropTypes.func.isRequired
   }
 
   constructor (props, context) {
@@ -78,12 +81,19 @@ export default class CommentList extends Component {
   }
 
   renderChild (item) {
-    return <CommentList data={item} topId={this.props.topId} selectedId={this.props.selectedId} OP={this.props.OP} key={item.id} />
+    return <CommentList
+      key={item.id}
+      data={item}
+      topId={this.props.topId}
+      selectedId={this.props.selectedId}
+      OP={this.props.OP}
+      onFold={this.props.onFold}
+    />
   }
 
   componentDidUpdate () {
     if (this.isSelected()) {
-      this.refs.container.scrollIntoView()//IfNeeded()
+      scrollIntoView(this.refs.container)
     }
   }
 
@@ -102,7 +112,9 @@ export default class CommentList extends Component {
   }
 
   toggleFolded () {
-    this.setState({ folded: !this.state.folded })
+    const folded = !this.state.folded
+    this.setState({ folded })
+    this.props.onFold(this.props.data.id, folded)
   }
 
   getFoldedLabel () {

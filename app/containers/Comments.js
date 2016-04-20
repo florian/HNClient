@@ -175,6 +175,7 @@ export default class Comments extends Component {
       selectedId={this.selectedId}
       OP={this.state.data.user}
       onFold={this.onFold.bind(this)}
+      onClick={this.changeSelection.bind(this)}
     />
   }
 
@@ -241,6 +242,12 @@ export default class Comments extends Component {
   selectNext () {
     const selected = Math.min(this.state.selected + 1, this.flattendComments.length - 1)
     this.setState({ selected })
+  }
+
+  changeSelection (id) {
+    this.flattendComments.forEach((item, i) => {
+      if (id === item.id) this.setState({ selected: i })
+    })
   }
 
   onFold (id, isFolded) {

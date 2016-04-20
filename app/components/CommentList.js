@@ -17,10 +17,14 @@ export default class CommentList extends Component {
     ]).isRequired,
     OP: React.PropTypes.string.isRequired,
     selectedId: React.PropTypes.number,
-    onFold: React.PropTypes.func.isRequired
+    onFold: React.PropTypes.func.isRequired,
+    onClick: React.PropTypes.func
   }
 
   constructor (props, context) {
+    const noop = () =>
+    props.onClick = props.onClick || noop
+
     super(props, context)
 
     this.state = {
@@ -73,9 +77,9 @@ export default class CommentList extends Component {
     const content = this.props.data.content
 
     if (content !== "[deleted]") {
-      return <div className={styles.content} dangerouslySetInnerHTML={{__html: content}} />
+      return <div className={styles.content} dangerouslySetInnerHTML={{__html: content}} onClick={this.onContentClick.bind(this)} />
     } else {
-      return <div className={`${styles.content} ${styles.deletedContent}`}>
+      return <div className={`${styles.content} ${styles.deletedContent}`} onClick={this.onContentClick.bind(this)}>
         This comment was deleted.
       </div>
     }
@@ -89,6 +93,7 @@ export default class CommentList extends Component {
       selectedId={this.props.selectedId}
       OP={this.props.OP}
       onFold={this.props.onFold}
+      onClick={this.props.onClick}
     />
   }
 
@@ -165,6 +170,10 @@ export default class CommentList extends Component {
     })
 
     return count + this.getSubCommentsCount(nextComments)
+  }
+
+  onContentClick () {
+    this.props.onClick(this.props.data.id)
   }
 
   isSelected () {

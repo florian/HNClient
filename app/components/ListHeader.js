@@ -6,14 +6,14 @@ import DisplayChooser from './DisplayChooser'
 // This is not a duplicate from ResourceChooser, since some labels here are
 // shorter because there's less available place
 const resources = {
-  "news": "Top Stories",
-  "newest": "Newest Stories",
-  "ask": "Ask HN",
-  "show": "Show HN",
-  "shownew": "Newest Show HN",
-  "best": "Highest voted recent",
-  "active": "Most active",
-  "noobstories": "From new users"
+  'news': 'Top Stories',
+  'newest': 'Newest Stories',
+  'ask': 'Ask HN',
+  'show': 'Show HN',
+  'shownew': 'Newest Show HN',
+  'best': 'Highest voted recent',
+  'active': 'Most active',
+  'noobstories': 'From new users'
 }
 
 export default class ListHeader extends Component {
@@ -42,8 +42,8 @@ export default class ListHeader extends Component {
   }
 
   render () {
-    return <h2 className="header storyHeader">
-      <button className={`${styles.hamburgerContainer} ${this.state.enabled ? styles.open : ""}`} onClick={this.toggle.bind(this)}>
+    return <h2 className='header storyHeader'>
+      <button className={`${styles.hamburgerContainer} ${this.state.enabled ? styles.open : ''}`} onClick={this.toggle.bind(this)}>
         <div className={styles.hamburger} />
       </button>
 
@@ -61,8 +61,8 @@ export default class ListHeader extends Component {
 
   renderLoader () {
     var className = `fa fa-refresh fa-fw ${styles.loader}`
-    if (this.props.loading) className += " fa-spin"
-    else if (!this.props.failed) className += " unimportantHeaderElement"
+    if (this.props.loading) className += ' fa-spin'
+    else if (!this.props.failed) className += ' unimportantHeaderElement'
 
     return <i className={className} onClick={this.props.onReload} />
   }

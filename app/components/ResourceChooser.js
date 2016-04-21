@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import styles from './ResourceChooser.styl'
 
 const resources = {
-  "news": "Top Stories",
-  "newest": "Newest Stories",
-  "ask": "Ask HN",
-  "show": "Show HN",
-  "shownew": "Newest Show HN",
-  "best": "Highest voted recent links",
-  "active": "Most active current discussions",
-  "noobstories": "Submissions from new users"
+  'news': 'Top Stories',
+  'newest': 'Newest Stories',
+  'ask': 'Ask HN',
+  'show': 'Show HN',
+  'shownew': 'Newest Show HN',
+  'best': 'Highest voted recent links',
+  'active': 'Most active current discussions',
+  'noobstories': 'Submissions from new users'
 }
 
 export default class ResourceChooser extends Component {
@@ -18,12 +18,8 @@ export default class ResourceChooser extends Component {
     onChange: React.PropTypes.func.isRequired
   }
 
-  constructor (props, context) {
-    super(props, context)
-  }
-
   render () {
-    return <div className={`${styles.chooser} ${this.props.open ? styles.open : ""}`}>
+    return <div className={`${styles.chooser} ${this.props.open ? styles.open : ''}`}>
       <ul>
         {Object.keys(resources).map(this.renderResource, this)}
       </ul>

@@ -10,13 +10,13 @@ export default class CommentsActionMenu extends Component {
 
   render () {
     return <div className={`${styles.container} unimportantHeaderElement`}>
-      <i data-tip data-for="external-comments-link"
-        className="fa fa-external-link"
+      <i data-tip data-for='external-comments-link'
+        className='fa fa-external-link'
         onClick={this.openExternal.bind(this)}
       />
 
-      <i data-tip data-for="commments-clipboard"
-        className="fa fa-clipboard"
+      <i data-tip data-for='commments-clipboard'
+        className='fa fa-clipboard'
         onClick={this.copy.bind(this)}
       />
     </div>

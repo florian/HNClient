@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import styles from './App.styl'
 
 import key from 'keymaster'
@@ -18,21 +18,21 @@ export default class App extends Component {
     this.state = {
       loading: true,
       failed: false,
-      resource: "news",
+      resource: 'news',
       data: [],
       loadedSecond: false, // Was the second top stories page loaded?
       selected: undefined,
       websiteWidth: 60, // in percent
-      display: "both" // both, link, comments
+      display: 'both' // both, link, comments
     }
   }
 
   componentDidMount () {
     this.fetch()
-    key("k", "all", this.selectPrev.bind(this))
-    key("j", "all", this.selectNext.bind(this))
-    key("l", "all", this.cycleDisplay.bind(this))
-    key("r", "all", this.fetch.bind(this))
+    key('k', 'all', this.selectPrev.bind(this))
+    key('j', 'all', this.selectNext.bind(this))
+    key('l', 'all', this.cycleDisplay.bind(this))
+    key('r', 'all', this.fetch.bind(this))
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -40,14 +40,14 @@ export default class App extends Component {
   }
 
   componentWillUnmount () {
-    key.unbind("k", "all")
-    key.unbind("j", "all")
-    key.unbind("l", "all")
-    key.unbind("r", "all")
+    key.unbind('k', 'all')
+    key.unbind('j', 'all')
+    key.unbind('l', 'all')
+    key.unbind('r', 'all')
   }
 
-  render() {
-    const className = this.state.resizing ? styles.resizing : ""
+  render () {
+    const className = this.state.resizing ? styles.resizing : ''
 
     return (
       <div className={className}>
@@ -79,21 +79,21 @@ export default class App extends Component {
     if (!item) return false
 
     var display = this.state.display
-    if (this.isSelfPost()) display = "comments"
+    if (this.isSelfPost()) display = 'comments'
 
     return <div>
       <Website item={item}
-        width={display === "link" ? 100 : this.state.websiteWidth}
-        show={display !== "comments"} />
+        width={display === 'link' ? 100 : this.state.websiteWidth}
+        show={display !== 'comments'} />
 
       <Resizer onResize={this.onResize.bind(this)}
         onResizeEnd={this.onResizeEnd.bind(this)}
         width={this.state.websiteWidth}
-        show={display === "both"} />
+        show={display === 'both'} />
 
       <Comments id={item.id}
-        width={display === "comments" ? 100 : 100 - this.state.websiteWidth}
-        show={display !== "link"} />
+        width={display === 'comments' ? 100 : 100 - this.state.websiteWidth}
+        show={display !== 'link'} />
     </div>
   }
 
@@ -168,9 +168,9 @@ export default class App extends Component {
     const current = this.state.display
     var display
 
-    if (current == "both") display = "link"
-    else if (current == "link") display = "comments"
-    else if (current == "comments") display = "link"
+    if (current === 'both') display = 'link'
+    else if (current === 'link') display = 'comments'
+    else if (current === 'comments') display = 'link'
 
     this.setState({ display })
   }
@@ -179,22 +179,22 @@ export default class App extends Component {
   fetch () {
     this.setState({ loading: true, failed: false })
 
-    axios.get(`https://node-hnapi.herokuapp.com/${this.state.resource}`).then(response => {
+    axios.get(`https://node-hnapi.herokuapp.com/${this.state.resource}`).then((response) => {
     // axios.get(`https://node-hnapi.herokuapp.com/best`).then(response => {
       this.setState({ data: response.data, loading: false, selected: 0, loadedSecond: false })
-    }).catch(response => {
+    }).catch((response) => {
       this.setState({ failed: true, loading: false })
     })
   }
 
   fetchSecond () {
-    if (this.state.resource !== "news" || this.state.loadedSecond) return false
+    if (this.state.resource !== 'news' || this.state.loadedSecond) return false
 
     this.setState({ loading: true, failed: false, loadedSecond: true })
 
-    axios.get(`https://node-hnapi.herokuapp.com/news2`).then(response => {
+    axios.get('https://node-hnapi.herokuapp.com/news2').then((response) => {
       this.setState({ data: this.state.data.concat(response.data), loading: false })
-    }).catch(response => {
+    }).catch((response) => {
       this.setState({ failed: true, loading: false })
     })
   }

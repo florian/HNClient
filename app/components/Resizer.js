@@ -23,18 +23,18 @@ export default class Resizer extends Component {
   }
 
   componentDidMount () {
-    document.body.addEventListener("mouseup", this.onMouseUp.bind(this));
-    document.body.addEventListener("mousemove", this.onMouseMove.bind(this));
+    document.body.addEventListener('mouseup', this.onMouseUp.bind(this))
+    document.body.addEventListener('mousemove', this.onMouseMove.bind(this))
   }
 
   componentWillUnmount () {
-    document.body.removeEventListener("mouseup", this.onMouseUp.bind(this));
-    document.body.removeEventListener("mousemove", this.onMouseMove.bind(this));
+    document.body.removeEventListener('mouseup', this.onMouseUp.bind(this))
+    document.body.removeEventListener('mousemove', this.onMouseMove.bind(this))
   }
 
   render () {
     const style = { left: `calc(400px + ((100% - 400px) * ${this.props.width} / 100))` }
-    if (!this.props.show) style.display = "none"
+    if (!this.props.show) style.display = 'none'
 
     return <div
       className={styles.resizer}
@@ -43,7 +43,7 @@ export default class Resizer extends Component {
   }
 
   onMouseDown (e) {
-    this.setState({ clicked: true, pos: e.clientX  })
+    this.setState({ clicked: true, pos: e.clientX })
   }
 
   onMouseUp (e) {
@@ -57,7 +57,7 @@ export default class Resizer extends Component {
     if (this.state.clicked) {
       const diff = e.clientX - this.state.pos
       if (diff !== 0 && this.props.onResize(diff)) {
-        this.setState({ pos: e.clientX})
+        this.setState({ pos: e.clientX })
       }
     }
   }

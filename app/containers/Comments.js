@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import styles from './Comments.styl'
 
 import {shell} from 'electron'
@@ -44,13 +44,13 @@ export default class Comments extends Component {
   componentDidMount () {
     this.fetch()
 
-    key("m", "all", this.selectPrev.bind(this))
-    key("n", "all", this.selectNext.bind(this))
+    key('m', 'all', this.selectPrev.bind(this))
+    key('n', 'all', this.selectNext.bind(this))
   }
 
   componentWillUnmount () {
-    key.unbind("m", "all")
-    key.unbind("n", "all")
+    key.unbind('m', 'all')
+    key.unbind('n', 'all')
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -63,33 +63,33 @@ export default class Comments extends Component {
 
   render () {
     const style = { width: `calc((100% - 400px) * ${this.props.width} / 100)` }
-    if (!this.props.show) style.display = "none"
+    if (!this.props.show) style.display = 'none'
 
-    return <div className={styles.commentContainer} style={style} ref="container">
-      <h2 className="header commentHeader">
+    return <div className={styles.commentContainer} style={style} ref='container'>
+      <h2 className='header commentHeader'>
         {this.renderHeaderContent()}
         <CommentsActionMenu item={this.state.data} />
       </h2>
 
       {this.renderComments()}
 
-      <Tooltip place="top" type="dark" effect="solid" id="OP">
+      <Tooltip place='top' type='dark' effect='solid' id='OP'>
         Original Poster – this user submitted the story
       </Tooltip>
 
-      <Tooltip place="left" type="dark" effect="solid" id="external-comments-link">
+      <Tooltip place='left' type='dark' effect='solid' id='external-comments-link'>
         Open the link to all comments in an external browser
       </Tooltip>
 
-      <Tooltip place="left" type="dark" effect="solid" id="commments-clipboard">
+      <Tooltip place='left' type='dark' effect='solid' id='commments-clipboard'>
         Copy the link to all comments
       </Tooltip>
 
-      <Tooltip place="left" type="dark" effect="solid" id="copy-sub-comment-link">
+      <Tooltip place='left' type='dark' effect='solid' id='copy-sub-comment-link'>
         Copy the direct link to this comment
       </Tooltip>
 
-      <Tooltip place="left" type="dark" effect="solid" id="open-reply-link">
+      <Tooltip place='left' type='dark' effect='solid' id='open-reply-link'>
         Open the link to reply to this comment in an external browser
       </Tooltip>
     </div>
@@ -98,14 +98,14 @@ export default class Comments extends Component {
   renderHeaderContent () {
     if (this.state.loading) {
       return <span className={styles.loading}>
-        <i className="fa fa-refresh fa-spin" />
+        <i className='fa fa-refresh fa-spin' />
         Loading comments…
       </span>
     }
 
     if (this.state.failed) {
       return <span className={styles.failed}>
-        <i className="fa fa-exclamation-circle" />
+        <i className='fa fa-exclamation-circle' />
         Couldn't load comments
       </span>
     }
@@ -130,9 +130,9 @@ export default class Comments extends Component {
     if (!this.state.data) return false
     const { content, user, time_ago, type, title } = this.state.data
 
-    if (!content && type !== "poll") return false
+    if (!content && type !== 'poll') return false
 
-    const label = content || title.replace(/^Poll: /i, "")
+    const label = content || title.replace(/^Poll: /i, '')
 
     return <div className={styles.selfPost}>
       <div className={styles.about}>
@@ -148,20 +148,20 @@ export default class Comments extends Component {
   }
 
   renderPoll () {
-    if (this.state.data.type !== "poll") return false
+    if (this.state.data.type !== 'poll') return false
     return <Poll data={this.state.data.poll} />
   }
 
   renderReplyButton () {
     const isFirst = !this.state.loading && this.state.comments.length === 0
 
-    var label = "Click here to open this story in the browser to reply"
-    if (this.state.data.type === "poll") label += " or to vote in the poll"
-    label += "…"
+    var label = 'Click here to open this story in the browser to reply'
+    if (this.state.data.type === 'poll') label += ' or to vote in the poll'
+    label += '…'
 
     return <div className={styles.pseudoTextarea} onClick={this.openCommentsUrl.bind(this)}>
       <p>{label}</p>
-      {isFirst ? <p>You can be the first to start the discussion!</p> : ""}
+      {isFirst ? <p>You can be the first to start the discussion!</p> : ''}
     </div>
   }
 
@@ -200,7 +200,7 @@ export default class Comments extends Component {
   }
 
   commentClicked (e) {
-    if (e.target.tagName.toLowerCase() === "a") {
+    if (e.target.tagName.toLowerCase() === 'a') {
       shell.openExternal(e.target.href)
 
       e.preventDefault()
@@ -250,7 +250,7 @@ export default class Comments extends Component {
   fetch () {
     this.setState({ loading: true, failed: false })
 
-    axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then(response => {
+    axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then((response) => {
     // axios.get(`https://node-hnapi.herokuapp.com/item/3717754`).then(response => {
 
       // These values are not part of the component state because they don't
@@ -267,7 +267,7 @@ export default class Comments extends Component {
         failed: false,
         selected: 0
       })
-    }).catch(response => {
+    }).catch((response) => {
       this.setState({ loading: false, failed: true })
     })
   }

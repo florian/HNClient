@@ -2,16 +2,16 @@
 // These IDs are written to disk and IDs that are older than two weeks will be
 // removed on startup.
 
-import remote from "remote"
-const app = remote.require("app")
+import remote from 'remote'
+const app = remote.require('app')
 
-import fs from "fs"
-import touch from "touch"
+import fs from 'fs'
+import touch from 'touch'
 
 class ReadStories {
 
   constructor () {
-    this.path = app.getPath("userData") + "/ids.txt"
+    this.path = app.getPath('userData') + '/ids.txt'
     this.ensureFile()
     this.readFromDisk()
     this.removeObsolete()
@@ -25,9 +25,9 @@ class ReadStories {
     const str = fs.readFileSync(this.path).toString().trim()
     this.data = {}
 
-    if (str !== "") {
-      str.split("\n").forEach(v => {
-        const [id, time] = v.split(" ").map(s => Number(s))
+    if (str !== '') {
+      str.split('\n').forEach((v) => {
+        const [id, time] = v.split(' ').map((s) => Number(s))
         this.data[id] = time
       })
     }
@@ -46,14 +46,14 @@ class ReadStories {
   }
 
   writeToDisk () {
-    var str = ""
+    var str = ''
 
     for (let id of Object.keys(this.data)) {
       const time = this.data[id]
       str += `${id} ${time}\n`
     }
 
-    fs.writeFileSync(this.path, str, "utf-8")
+    fs.writeFileSync(this.path, str, 'utf-8')
   }
 
   add (id) {

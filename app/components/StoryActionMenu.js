@@ -12,23 +12,23 @@ export default class StoryActionMenu extends Component {
 
   render () {
     return <div className={`${styles.container} unimportantHeaderElement`}>
-      <i data-tip data-for="external-link"
-        className="fa fa-external-link"
+      <i data-tip data-for='external-link'
+        className='fa fa-external-link'
         onClick={this.openExternal.bind(this)}
       />
 
-      <i data-tip data-for="clipboard"
-        className="fa fa-clipboard"
+      <i data-tip data-for='clipboard'
+        className='fa fa-clipboard'
         onClick={this.copy.bind(this)}
       />
 
-      <i data-tip data-for="readablity"
-        className="fa fa-book"
+      <i data-tip data-for='readablity'
+        className='fa fa-book'
         onClick={this.props.onReadability}
       />
 
-      <i data-tip data-for="google"
-        className="fa fa-google"
+      <i data-tip data-for='google'
+        className='fa fa-google'
         onClick={this.props.onGoogle}
       />
     </div>

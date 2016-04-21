@@ -9,7 +9,7 @@
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
     "test-watch": "npm test -- --watch",
     "test-e2e": "cross-env NODE_ENV=test mocha --compilers js:babel-register --require ./test/setup.js --require co-mocha ./test/e2e.js",
-    "lint": "eslint app test *.js",
+    "lint": "standard 'app/*.js' 'app/**/*.js'",
     "hot-server": "node -r babel-register server.js",
     "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/.bin/webpack --config webpack.config.electron.js --progress --profile --colors",
     "build-renderer": "cross-env NODE_ENV=production node -r babel-register ./node_modules/.bin/webpack --config webpack.config.production.js --progress --profile --colors",
@@ -96,5 +96,8 @@
   "devEngines": {
     "node": "4.x || 5.x",
     "npm": "2.x || 3.x"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }

@@ -4,7 +4,8 @@ import styles from './Website.styl'
 import Tooltip from 'react-tooltip'
 import StoryActionMenu from '../components/StoryActionMenu'
 
-const readabilityCode = "((function(){window.baseUrl='//www.readability.com';window.readabilityToken='';var s=document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('charset','UTF-8');s.setAttribute('src',baseUrl+'/bookmarklet/read.js');document.documentElement.appendChild(s);})())"
+// TODO: This is really ugly
+const readabilityCode = '((function(){window.baseUrl="//www.readability.com";window.readabilityToken="";var s=document.createElement("script");s.setAttribute("type","text/javascript");s.setAttribute("charset","UTF-8");s.setAttribute("src",baseUrl+"/bookmarklet/read.js");document.documentElement.appendChild(s);})())'
 
 export default class StoryList extends Component {
   static propTypes = {
@@ -28,20 +29,19 @@ export default class StoryList extends Component {
   }
 
   componentDidMount () {
-    this.refs.webview.addEventListener("did-start-loading", this.updateNavigation.bind(this))
-    this.refs.webview.addEventListener("did-stop-loading", this.updateNavigation.bind(this))
+    this.refs.webview.addEventListener('did-start-loading', this.updateNavigation.bind(this))
+    this.refs.webview.addEventListener('did-stop-loading', this.updateNavigation.bind(this))
   }
 
   componentWillUnmount () {
-    this.refs.webview.removeEventListener("did-start-loading", this.updateNavigation.bind(this))
-    this.refs.webview.addEventListener("did-stop-loading", this.updateNavigation.bind(this))
+    this.refs.webview.removeEventListener('did-start-loading', this.updateNavigation.bind(this))
+    this.refs.webview.addEventListener('did-stop-loading', this.updateNavigation.bind(this))
   }
 
   componentDidUpdate (prevProps, prevState) {
     // If the user chose a different story we want to clear the webview history
     if (prevProps.item.url !== this.props.item.url) this.refs.webview.clearHistory()
   }
-
 
   render () {
     const item = this.props.item
@@ -54,7 +54,7 @@ export default class StoryList extends Component {
     // to only the comments to only the website to website+comments.
     // We render it at all to make sure the website is preloaded. This is the
     // approach suggested in the Electron docs.
-    if (!this.props.show) className += " " + styles.hidden
+    if (!this.props.show) className += ' ' + styles.hidden
 
     return <div className={styles.websiteContainer} style={style}>
       <h2 className={`header itemHeader ${styles.header}`}>
@@ -73,56 +73,56 @@ export default class StoryList extends Component {
         />
       </h2>
 
-      <Tooltip place="bottom" type="dark" effect="solid" id="navigationGoBack">
+      <Tooltip place='bottom' type='dark' effect='solid' id='navigationGoBack'>
         Go back to the previous website
       </Tooltip>
 
-      <Tooltip place="bottom" type="dark" effect="solid" id="navigationGoForward">
+      <Tooltip place='bottom' type='dark' effect='solid' id='navigationGoForward'>
         Go forward to the last website
       </Tooltip>
 
-      <Tooltip place="bottom" type="dark" effect="solid" id="external-link">
+      <Tooltip place='bottom' type='dark' effect='solid' id='external-link'>
         Open this link in an external browser
       </Tooltip>
 
-      <Tooltip place="bottom" type="dark" effect="solid" id="clipboard">
+      <Tooltip place='bottom' type='dark' effect='solid' id='clipboard'>
         Copy this link to the clipboard
       </Tooltip>
 
-      <Tooltip place="bottom" type="dark" effect="solid" id="readablity">
+      <Tooltip place='bottom' type='dark' effect='solid' id='readablity'>
         Use Readability to make this article more readable
       </Tooltip>
 
-      <Tooltip place="bottom" type="dark" effect="solid" id="google">
+      <Tooltip place='bottom' type='dark' effect='solid' id='google'>
         Google this story in the embed browser
       </Tooltip>
 
       <div className={styles.webviewContainer}>
         <webview
           src={this.getURL()}
-          ref="webview"
+          ref='webview'
         />
       </div>
     </div>
   }
 
   renderBackButton () {
-    var className = "fa fa-caret-left"
-    if (!this.state.canGoBack) className += " " + styles.disabledNavigation
+    var className = 'fa fa-caret-left'
+    if (!this.state.canGoBack) className += ' ' + styles.disabledNavigation
 
-    return <i className={className} data-tip data-for="navigationGoBack" onClick={() => this.refs.webview.goBack()} />
+    return <i className={className} data-tip data-for='navigationGoBack' onClick={() => this.refs.webview.goBack()} />
   }
 
   renderForwardButton () {
-    var className = "fa fa-caret-right"
-    if (!this.state.canGoForward) className += " " + styles.disabledNavigation
+    var className = 'fa fa-caret-right'
+    if (!this.state.canGoForward) className += ' ' + styles.disabledNavigation
 
-    return <i className={className} data-tip data-for="navigationGoForward" onClick={() => this.refs.webview.goForward()} />
+    return <i className={className} data-tip data-for='navigationGoForward' onClick={() => this.refs.webview.goForward()} />
   }
 
   renderLoadingButton () {
     var className = `fa fa-refresh fa-spin ${styles.loading}`
-    if (!this.state.loading) className += " " + styles.notLoading
+    if (!this.state.loading) className += ' ' + styles.notLoading
 
     return <i className={className} />
   }
@@ -145,7 +145,6 @@ export default class StoryList extends Component {
       loading: this.refs.webview.isLoading()
     })
   }
-
 
   onGoogle () {
     this.refs.webview.src = `https://www.google.com/search?q=${this.props.item.title}`

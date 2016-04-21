@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import styles from './Poll.styl'
 
 export default class Comments extends Component {
@@ -29,7 +29,7 @@ export default class Comments extends Component {
 
   totalVotes () {
     const poll = this.props.data
-    const res = poll.map((v, i) => v.points).filter(p => p).reduce((a, b) => a + b)
+    const res = poll.map((v, i) => v.points).filter((p) => p).reduce((a, b) => a + b)
     return res
   }
 }

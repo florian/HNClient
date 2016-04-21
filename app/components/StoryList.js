@@ -31,7 +31,7 @@ export default class StoryList extends Component {
 
   render () {
     var className = styles.listContainer
-    if (this.props.selected === undefined) className += " " + styles.nothingChosen
+    if (this.props.selected === undefined) className += ' ' + styles.nothingChosen
 
     return <div className={className} onScroll={this.onScroll.bind(this)}>
       <ListHeader
@@ -48,7 +48,7 @@ export default class StoryList extends Component {
 
       <ResourceChooser open={this.state.chooserOpen} onChange={this.changeResource.bind(this)} />
 
-      <ol ref="container" className={`${styles.storyList} ${this.state.chooserOpen ? styles.listInBackground : ""}`}>
+      <ol ref='container' className={`${styles.storyList} ${this.state.chooserOpen ? styles.listInBackground : ''}`}>
       {this.props.data.map(this.renderItem, this)}
       </ol>
     </div>
@@ -77,6 +77,6 @@ export default class StoryList extends Component {
 
     // We want to trigger the Waypoint event if the user scrolled past 2/3 of
     // the storys
-    if (scrollTop >= maxScrollTop * 2/3) this.props.onWaypoint()
+    if (scrollTop >= maxScrollTop * 2 / 3) this.props.onWaypoint()
   }
 }

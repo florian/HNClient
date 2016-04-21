@@ -11,8 +11,8 @@ export default class CommentList extends Component {
   static propTypes = {
     data: React.PropTypes.object.isRequired,
     topId: React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
+      React.PropTypes.number,
+      React.PropTypes.string
     ]).isRequired,
     OP: React.PropTypes.string.isRequired,
     selectedId: React.PropTypes.number,
@@ -21,7 +21,7 @@ export default class CommentList extends Component {
   }
 
   constructor (props, context) {
-    const noop = () =>
+    const noop = () => {}
     props.onClick = props.onClick || noop
 
     super(props, context)
@@ -36,7 +36,7 @@ export default class CommentList extends Component {
     this.getSubCommentsIds(this.props.data.comments)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     if (this.isSelected()) this.unbindEnter()
   }
 
@@ -68,34 +68,34 @@ export default class CommentList extends Component {
 
   render () {
     const data = this.props.data
-    const foldedClass = this.state.folded ? styles.folded : ""
+    const foldedClass = this.state.folded ? styles.folded : ''
     var className = `${foldedClass}`
 
     const isSelected = this.isSelected()
-    if (isSelected) className += " " + styles.selected
+    if (isSelected) className += ' ' + styles.selected
 
-    return <div className={className} ref="container">
+    return <div className={className} ref='container'>
       <div className={styles.contentWrapper}>
         <div className={styles.about} onClick={this.toggleFolded.bind(this)}>
           <div className={styles.aboutItem}>
             <UserLink name={data.user} className={styles.username} />
-            {data.user === this.props.OP ? this.renderOP() : ""}
+            {data.user === this.props.OP ? this.renderOP() : ''}
             <span className={styles.time}>{data.time_ago}</span>
             <span className={styles.aboutChildren}>{this.getFoldedLabel()}</span>
           </div>
 
           <div className={styles.actions}>
-            <i data-tip data-for="copy-sub-comment-link" className="fa fa-clipboard" onClick={this.copyLink.bind(this)}></i>
-            <i data-tip data-for="open-reply-link" className="fa fa-reply" onClick={this.openReply.bind(this)}></i>
+            <i data-tip data-for='copy-sub-comment-link' className='fa fa-clipboard' onClick={this.copyLink.bind(this)}></i>
+            <i data-tip data-for='open-reply-link' className='fa fa-reply' onClick={this.openReply.bind(this)}></i>
           </div>
         </div>
 
         {this.renderContent()}
-    </div>
+      </div>
 
-    <div className={styles.children}>
-      {data.comments.map(this.renderChild, this)}
-    </div>
+      <div className={styles.children}>
+        {data.comments.map(this.renderChild, this)}
+      </div>
     </div>
   }
 
@@ -103,14 +103,14 @@ export default class CommentList extends Component {
     return <span
       className={styles.isOP}
       data-tip
-      data-for="OP"
+      data-for='OP'
     >OP</span>
   }
 
   renderContent () {
     const content = this.props.data.content
 
-    if (content !== "[deleted]") {
+    if (content !== '[deleted]') {
       return <div className={styles.content} dangerouslySetInnerHTML={{__html: content}} onClick={this.onContentClick.bind(this)} />
     } else {
       return <div className={`${styles.content} ${styles.deletedContent}`} onClick={this.onContentClick.bind(this)}>
@@ -133,10 +133,10 @@ export default class CommentList extends Component {
 
   getFoldedLabel () {
     const count = this.getSubCommentsCount(this.props.data.comments)
-    var foldedLabel = ""
+    var foldedLabel = ''
 
     if (count > 0) {
-      const comments = count === 1 ? "comment" : "comments"
+      const comments = count === 1 ? 'comment' : 'comments'
       foldedLabel = `– ${count} child ${comments} hidden`
     }
 
@@ -144,12 +144,12 @@ export default class CommentList extends Component {
   }
 
   bindEnter () {
-    key("enter", `comment-${this.props.data.id}`, this.toggleFolded.bind(this))
+    key('enter', `comment-${this.props.data.id}`, this.toggleFolded.bind(this))
     key.setScope(`comment-${this.props.data.id}`)
   }
 
   unbindEnter () {
-    key.unbind("enter", `comment-${this.props.data.id}`)
+    key.unbind('enter', `comment-${this.props.data.id}`)
   }
 
   openReply (e) {
@@ -198,7 +198,11 @@ export default class CommentList extends Component {
   // dramatically increasing how well `shouldComponentUpdate` works
   getSubCommentsIds (comments) {
     var ids = {}
-    this.loopSubComments(comments, (comment) => ids[comment.id] = true)
+
+    this.loopSubComments(comments, (comment) => {
+      ids[comment.id] = true
+    })
+
     this.subCommentsIds = ids
   }
 

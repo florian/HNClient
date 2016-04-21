@@ -22,27 +22,27 @@ export default class KeyboardShortcutInfo extends Component {
   }
 
   componentDidMount () {
-    key("h", "all", this.toggleDisplay.bind(this))
-    document.body.addEventListener("keypress", this.handleQuestionMark.bind(this))
+    key('h', 'all', this.toggleDisplay.bind(this))
+    document.body.addEventListener('keypress', this.handleQuestionMark.bind(this))
   }
 
   componentWillUnmount () {
-    key.undbind("h", "all")
-    document.body.removeEventListener("keypress", this.handleQuestionMark.bind(this))
+    key.undbind('h', 'all')
+    document.body.removeEventListener('keypress', this.handleQuestionMark.bind(this))
   }
 
   render () {
     return <Modal show={this.state.show} onClose={this.close.bind(this)}>
       <h2 className={styles.header}>Keyboard Shortcuts</h2>
       <ul className={styles.list}>
-        <Shortcut char="j" label="next story" />
-        <Shortcut char="k" label="previous story" />
-        <Shortcut char="l" label="toggle between the WebView and the comments" />
-        <Shortcut char="n" label="next comment" />
-        <Shortcut char="m" label="previous comment" />
-        <Shortcut char="enter" label="fold or expand the selected comment" />
-        <Shortcut char="r" label="reload the stories" />
-        <Shortcut char="h" label="show this help" />
+        <Shortcut char='j' label='next story' />
+        <Shortcut char='k' label='previous story' />
+        <Shortcut char='l' label='toggle between the WebView and the comments' />
+        <Shortcut char='n' label='next comment' />
+        <Shortcut char='m' label='previous comment' />
+        <Shortcut char='enter' label='fold or expand the selected comment' />
+        <Shortcut char='r' label='reload the stories' />
+        <Shortcut char='h' label='show this help' />
       </ul>
     </Modal>
   }
@@ -60,6 +60,6 @@ export default class KeyboardShortcutInfo extends Component {
   // the German keyboard.
   handleQuestionMark (e) {
     const pressedChar = String.fromCharCode(e.keyCode)
-    if (pressedChar === "?") this.toggleDisplay()
+    if (pressedChar === '?') this.toggleDisplay()
   }
 }

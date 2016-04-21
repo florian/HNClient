@@ -20,10 +20,11 @@ export default class CommentList extends Component {
     onClick: React.PropTypes.func
   }
 
-  constructor (props, context) {
-    const noop = () => {}
-    props.onClick = props.onClick || noop
+  static defaultProps = {
+    onClick: () => {}
+  }
 
+  constructor (props, context) {
     super(props, context)
 
     this.state = {
@@ -198,11 +199,7 @@ export default class CommentList extends Component {
   // dramatically increasing how well `shouldComponentUpdate` works
   getSubCommentsIds (comments) {
     var ids = {}
-
-    this.loopSubComments(comments, (comment) => {
-      ids[comment.id] = true
-    })
-
+    this.loopSubComments(comments, (comment) => { ids[comment.id] = true })
     this.subCommentsIds = ids
   }
 

@@ -9,7 +9,7 @@ export default class Resizer extends Component {
   }
 
   static defaultProps = {
-    show: true
+    show: true,
     onResizeEnd: () => {}
   }
 

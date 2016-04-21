@@ -33,6 +33,7 @@ export default class CommentList extends Component {
 
   componentDidMount () {
     if (this.isSelected()) this.bindEnter()
+    this.getSubCommentsIds(this.props.data.comments)
   }
 
   componentWillUnmount() {
@@ -40,6 +41,8 @@ export default class CommentList extends Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
+    this.getSubCommentsIds(this.props.data.comments)
+
     if (this.isSelected()) scrollIntoView(this.refs.container)
 
     // If it just got selected
@@ -47,6 +50,20 @@ export default class CommentList extends Component {
 
     // If it just lost selection
     if (prevProps.selectedId === prevProps.data.id && !this.isSelected()) this.unbindEnter()
+  }
+
+  // We basically want it to update if something about itself changed or if
+  // there's the possibility that something about a child comment changed. This
+  // is the case if and only if the (new or old) selected ID is part of the children.
+  shouldComponentUpdate (nextProps, nextState) {
+    if (nextProps.selectedId in this.subCommentsIds || this.props.selectedId in this.subCommentsIds) return true
+
+    const gainedSelection = nextProps.selectedId !== nextProps.data.id && this.isSelected()
+    const lostSelection = nextProps.selectedId === nextProps.data.id && !this.isSelected()
+    const foldedChanged = this.state.folded !== nextState.folded
+    const dataChanged = this.props.data !== nextProps.data
+
+    return gainedSelection || lostSelection || foldedChanged || dataChanged
   }
 
   render () {
@@ -155,20 +172,34 @@ export default class CommentList extends Component {
     this.props.onFold(this.props.data.id, folded)
   }
 
-  // this.props.data.comments.length only gets the size of the next level of
-  // children, this recursively goes through all levels
-  getSubCommentsCount (comments) {
+  // Pretty much BFS through all comments
+  loopSubComments (comments, fn) {
     if (comments.length === 0) return 0
 
-    var count = 0
     var nextComments = []
 
     comments.forEach((v, i) => {
-      count++
+      fn(v)
       nextComments = nextComments.concat(v.comments)
     })
 
-    return count + this.getSubCommentsCount(nextComments)
+    this.loopSubComments(nextComments, fn)
+  }
+
+  // this.props.data.comments.length only gets the size of the next level of
+  // children, this recursively goes through all levels
+  getSubCommentsCount (comments) {
+    var count = 0
+    this.loopSubComments(comments, () => count++)
+    return count
+  }
+
+  // We can use this HashMap to quickly check if a subcomment got selected, thus
+  // dramatically increasing how well `shouldComponentUpdate` works
+  getSubCommentsIds (comments) {
+    var ids = {}
+    this.loopSubComments(comments, (comment) => ids[comment.id] = true)
+    this.subCommentsIds = ids
   }
 
   onContentClick () {

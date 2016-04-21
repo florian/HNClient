@@ -8,6 +8,7 @@ import StoryList from '../components/StoryList'
 import Comments from './Comments'
 import Website from '../components/Website'
 import Resizer from '../components/Resizer'
+import KeyboardShortcutInfo from '../components/KeyboardShortcutInfo'
 
 export default class App extends Component {
   constructor (props, context) {
@@ -30,6 +31,7 @@ export default class App extends Component {
     key("k", "all", this.selectPrev.bind(this))
     key("j", "all", this.selectNext.bind(this))
     key("l", "all", this.cycleDisplay.bind(this))
+    key("r", "all", this.fetch.bind(this))
   }
 
   componentDidUpdate (prevProps, prevState) {
@@ -40,6 +42,7 @@ export default class App extends Component {
     key.unbind("k", "all")
     key.unbind("j", "all")
     key.unbind("l", "all")
+    key.unbind("r", "all")
   }
 
   render() {
@@ -64,6 +67,8 @@ export default class App extends Component {
 
         {this.renderChosen()}
         {this.renderDevTools()}
+
+        <KeyboardShortcutInfo />
       </div>
     )
   }

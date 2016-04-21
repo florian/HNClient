@@ -89,6 +89,7 @@
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
     "scroll-iv": "florian/scroll-iv",
+    "simple-react-modal": "^0.4.9",
     "source-map-support": "^0.4.0",
     "touch": "^1.0.0"
   },

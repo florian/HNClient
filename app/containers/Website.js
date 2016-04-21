@@ -27,6 +27,22 @@ export default class StoryList extends Component {
     }
   }
 
+  componentDidMount () {
+    this.refs.webview.addEventListener("did-start-loading", this.updateNavigation.bind(this))
+    this.refs.webview.addEventListener("did-stop-loading", this.updateNavigation.bind(this))
+  }
+
+  componentWillUnmount () {
+    this.refs.webview.removeEventListener("did-start-loading", this.updateNavigation.bind(this))
+    this.refs.webview.addEventListener("did-stop-loading", this.updateNavigation.bind(this))
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    // If the user chose a different story we want to clear the webview history
+    if (prevProps.item.url !== this.props.item.url) this.refs.webview.clearHistory()
+  }
+
+
   render () {
     const item = this.props.item
     const style = { width: `calc((100% - 400px) * ${this.props.width} / 100)` }
@@ -90,29 +106,6 @@ export default class StoryList extends Component {
     </div>
   }
 
-  componentDidMount () {
-    this.refs.webview.addEventListener("did-start-loading", this.updateNavigation.bind(this))
-    this.refs.webview.addEventListener("did-stop-loading", this.updateNavigation.bind(this))
-  }
-
-  componentWillUnmount () {
-    this.refs.webview.removeEventListener("did-start-loading", this.updateNavigation.bind(this))
-    this.refs.webview.addEventListener("did-stop-loading", this.updateNavigation.bind(this))
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    // If the user chose a different story we want to clear the webview history
-    if (prevProps.item.url !== this.props.item.url) this.refs.webview.clearHistory()
-  }
-
-  updateNavigation () {
-    this.setState({
-      canGoBack: this.refs.webview.canGoBack(),
-      canGoForward: this.refs.webview.canGoForward(),
-      loading: this.refs.webview.isLoading()
-    })
-  }
-
   renderBackButton () {
     var className = "fa fa-caret-left"
     if (!this.state.canGoBack) className += " " + styles.disabledNavigation
@@ -144,6 +137,15 @@ export default class StoryList extends Component {
 
     return url
   }
+
+  updateNavigation () {
+    this.setState({
+      canGoBack: this.refs.webview.canGoBack(),
+      canGoForward: this.refs.webview.canGoForward(),
+      loading: this.refs.webview.isLoading()
+    })
+  }
+
 
   onGoogle () {
     this.refs.webview.src = `https://www.google.com/search?q=${this.props.item.title}`

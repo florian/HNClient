@@ -59,17 +59,17 @@ export default class ListHeader extends Component {
     </h2>
   }
 
-  toggle () {
-    const enabled = !this.state.enabled
-    this.setState({ enabled })
-    this.props.onHamburger(enabled)
-  }
-
   renderLoader () {
     var className = `fa fa-refresh fa-fw ${styles.loader}`
     if (this.props.loading) className += " fa-spin"
     else if (!this.props.failed) className += " unimportantHeaderElement"
 
     return <i className={className} onClick={this.props.onReload} />
+  }
+
+  toggle () {
+    const enabled = !this.state.enabled
+    this.setState({ enabled })
+    this.props.onHamburger(enabled)
   }
 }

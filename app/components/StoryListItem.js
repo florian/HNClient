@@ -10,6 +10,15 @@ export default class StoryListItem extends Component {
     onClick: React.PropTypes.func
   }
 
+  componentDidMount () {
+    this.markReadIfSelected()
+  }
+
+  componentDidUpdate () {
+    this.markReadIfSelected()
+    if (this.props.isSelected) this.refs.container.scrollIntoViewIfNeeded(false)
+  }
+
   render() {
     const item = this.props.item
 
@@ -27,15 +36,6 @@ export default class StoryListItem extends Component {
         <div className={styles.commentCount}>{item.comments_count}</div>
       </li>
     )
-  }
-
-  componentDidMount () {
-    this.markReadIfSelected()
-  }
-
-  componentDidUpdate () {
-    this.markReadIfSelected()
-    if (this.props.isSelected) this.refs.container.scrollIntoViewIfNeeded(false)
   }
 
   markReadIfSelected () {

@@ -23,7 +23,6 @@ export default class CommentList extends Component {
 
     e.preventDefault()
     e.stopPropagation()
-
   }
 
   getURL () {

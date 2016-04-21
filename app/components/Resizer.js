@@ -10,9 +10,6 @@ export default class Resizer extends Component {
 
   static defaultProps = {
     show: true
-  }
-
-  static defaultProps = {
     onResizeEnd: () => {}
   }
 
@@ -25,6 +22,16 @@ export default class Resizer extends Component {
     }
   }
 
+  componentDidMount () {
+    document.body.addEventListener("mouseup", this.onMouseUp.bind(this));
+    document.body.addEventListener("mousemove", this.onMouseMove.bind(this));
+  }
+
+  componentWillUnmount () {
+    document.body.removeEventListener("mouseup", this.onMouseUp.bind(this));
+    document.body.removeEventListener("mousemove", this.onMouseMove.bind(this));
+  }
+
   render () {
     const style = { left: `calc(400px + ((100% - 400px) * ${this.props.width} / 100))` }
     if (!this.props.show) style.display = "none"
@@ -33,16 +40,6 @@ export default class Resizer extends Component {
       className={styles.resizer}
       style={style}
       onMouseDown={this.onMouseDown.bind(this)} />
-  }
-
-  componentDidMount () {
-    document.body.addEventListener("mouseup", this.onMouseUp.bind(this));
-    document.body.addEventListener("mousemove", this.onMouseMove.bind(this));
-  }
-
-  componentWillUnMount () {
-    document.body.removeEventListener("mouseup", this.onMouseUp.bind(this));
-    document.body.removeEventListener("mousemove", this.onMouseMove.bind(this));
   }
 
   onMouseDown (e) {

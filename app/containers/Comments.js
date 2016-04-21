@@ -54,8 +54,7 @@ export default class Comments extends Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    // We want to (re)fetch the comments if a new story was chosen (i.e. the ID
-    // changed)
+    // We want to (re)fetch the comments if a new story was chosen (i.e. the ID changed)
     if (prevProps.id !== this.props.id) {
       this.fetch()
       this.refs.container.scrollTop = 0
@@ -68,7 +67,7 @@ export default class Comments extends Component {
 
     return <div className={styles.commentContainer} style={style} ref="container">
       <h2 className="header commentHeader">
-        {this.getHeaderContent()}
+        {this.renderHeaderContent()}
         <CommentsActionMenu item={this.state.data} />
       </h2>
 
@@ -96,7 +95,7 @@ export default class Comments extends Component {
     </div>
   }
 
-  getHeaderContent () {
+  renderHeaderContent () {
     if (this.state.loading) {
       return <span className={styles.loading}>
         <i className="fa fa-refresh fa-spin" />
@@ -178,42 +177,9 @@ export default class Comments extends Component {
     />
   }
 
-  openCommentsUrl () {
-    shell.openExternal(`https://news.ycombinator.com/item?id=${this.props.id}`)
-  }
-
-  fetch () {
-    this.setState({ loading: true, failed: false })
-
-    axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then(response => {
-    // axios.get(`https://node-hnapi.herokuapp.com/item/3717754`).then(response => {
-
-      // These values are not part of the component state because they don't
-      // influence render itself. They are used by functions like selectPrev/selectNext
-      // that have their own state properties
-      this.commentData = response.data
-      this.flattendComments = this.flattenComments(this.commentData)
-
-      this.setState({
-        comments: response.data.comments,
-        count: response.data.comments_count,
-        data: response.data,
-        loading: false,
-        failed: false,
-        selected: 0
-      })
-    }).catch(response => {
-      this.setState({ loading: false, failed: true })
-    })
-  }
-
-  commentClicked (e) {
-    if (e.target.tagName.toLowerCase() === "a") {
-      shell.openExternal(e.target.href)
-
-      e.preventDefault()
-      e.stopPropagation()
-    }
+  // TODO: Move to Redux
+  getSelectedId () {
+    return this.flattendComments ? this.flattendComments[this.state.selected].id : undefined
   }
 
   flattenComments (data) {
@@ -229,8 +195,17 @@ export default class Comments extends Component {
     return result
   }
 
-  getSelectedId () {
-    return this.flattendComments ? this.flattendComments[this.state.selected].id : undefined
+  openCommentsUrl () {
+    shell.openExternal(`https://news.ycombinator.com/item?id=${this.props.id}`)
+  }
+
+  commentClicked (e) {
+    if (e.target.tagName.toLowerCase() === "a") {
+      shell.openExternal(e.target.href)
+
+      e.preventDefault()
+      e.stopPropagation()
+    }
   }
 
   selectPrev () {
@@ -270,4 +245,31 @@ export default class Comments extends Component {
       }
     })
   }
+
+  // TODO: Move to Redux
+  fetch () {
+    this.setState({ loading: true, failed: false })
+
+    axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then(response => {
+    // axios.get(`https://node-hnapi.herokuapp.com/item/3717754`).then(response => {
+
+      // These values are not part of the component state because they don't
+      // influence render itself. They are used by functions like selectPrev/selectNext
+      // that have their own state properties
+      this.commentData = response.data
+      this.flattendComments = this.flattenComments(this.commentData)
+
+      this.setState({
+        comments: response.data.comments,
+        count: response.data.comments_count,
+        data: response.data,
+        loading: false,
+        failed: false,
+        selected: 0
+      })
+    }).catch(response => {
+      this.setState({ loading: false, failed: true })
+    })
+  }
+
 }

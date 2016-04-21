@@ -31,6 +31,24 @@ export default class CommentList extends Component {
     }
   }
 
+  componentDidMount () {
+    if (this.isSelected()) this.bindEnter()
+  }
+
+  componentWillUnmount() {
+    if (this.isSelected()) this.unbindEnter()
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.isSelected()) scrollIntoView(this.refs.container)
+
+    // If it just got selected
+    if (prevProps.selectedId !== prevProps.data.id && this.isSelected()) this.bindEnter()
+
+    // If it just lost selection
+    if (prevProps.selectedId === prevProps.data.id && !this.isSelected()) this.unbindEnter()
+  }
+
   render () {
     const data = this.props.data
     const foldedClass = this.state.folded ? styles.folded : ""
@@ -96,6 +114,18 @@ export default class CommentList extends Component {
     />
   }
 
+  getFoldedLabel () {
+    const count = this.getSubCommentsCount(this.props.data.comments)
+    var foldedLabel = ""
+
+    if (count > 0) {
+      const comments = count === 1 ? "comment" : "comments"
+      foldedLabel = `– ${count} child ${comments} hidden`
+    }
+
+    return foldedLabel
+  }
+
   bindEnter () {
     key("enter", `comment-${this.props.data.id}`, this.toggleFolded.bind(this))
     key.setScope(`comment-${this.props.data.id}`)
@@ -103,24 +133,6 @@ export default class CommentList extends Component {
 
   unbindEnter () {
     key.unbind("enter", `comment-${this.props.data.id}`)
-  }
-
-  componentDidMount () {
-    if (this.isSelected()) this.bindEnter()
-  }
-
-  componentWillUnmount() {
-    if (this.isSelected()) this.unbindEnter()
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    if (this.isSelected()) scrollIntoView(this.refs.container)
-
-    // If it just got selected
-    if (prevProps.selectedId !== prevProps.data.id && this.isSelected()) this.bindEnter()
-
-    // If it just lost selection
-    if (prevProps.selectedId === prevProps.data.id && !this.isSelected()) this.unbindEnter()
   }
 
   openReply (e) {
@@ -141,18 +153,6 @@ export default class CommentList extends Component {
     const folded = !this.state.folded
     this.setState({ folded })
     this.props.onFold(this.props.data.id, folded)
-  }
-
-  getFoldedLabel () {
-    const count = this.getSubCommentsCount(this.props.data.comments)
-    var foldedLabel = ""
-
-    if (count > 0) {
-      const comments = count === 1 ? "comment" : "comments"
-      foldedLabel = `– ${count} child ${comments} hidden`
-    }
-
-    return foldedLabel
   }
 
   // this.props.data.comments.length only gets the size of the next level of

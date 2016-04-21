@@ -21,6 +21,16 @@ export default class KeyboardShortcutInfo extends Component {
     }
   }
 
+  componentDidMount () {
+    key("h", "all", this.toggleDisplay.bind(this))
+    document.body.addEventListener("keypress", this.handleQuestionMark.bind(this))
+  }
+
+  componentWillUnmount () {
+    key.undbind("h", "all")
+    document.body.removeEventListener("keypress", this.handleQuestionMark.bind(this))
+  }
+
   render () {
     return <Modal show={this.state.show} onClose={this.close.bind(this)}>
       <h2 className={styles.header}>Keyboard Shortcuts</h2>
@@ -35,16 +45,6 @@ export default class KeyboardShortcutInfo extends Component {
         <Shortcut char="h" label="show this help" />
       </ul>
     </Modal>
-  }
-
-  componentDidMount () {
-    key("h", "all", this.toggleDisplay.bind(this))
-    document.body.addEventListener("keypress", this.handleQuestionMark.bind(this))
-  }
-
-  componentWillUnmount () {
-    key.undbind("h", "all")
-      document.body.removeEventListener("keypress", this.handleQuestionMark.bind(this))
   }
 
   toggleDisplay () {

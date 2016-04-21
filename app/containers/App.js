@@ -74,13 +74,6 @@ export default class App extends Component {
     )
   }
 
-  getChosen () {
-    const state = this.state
-
-    if (state.selected !== undefined) return state.data[state.selected]
-    else return false
-  }
-
   renderChosen () {
     const item = this.getChosen()
     if (!item) return false
@@ -111,6 +104,22 @@ export default class App extends Component {
     } else {
       return false
     }
+  }
+
+  // TODO: Move to Redux?
+  getChosen () {
+    const state = this.state
+
+    if (state.selected !== undefined) return state.data[state.selected]
+    else return false
+  }
+
+  // TODO: Move to Redux?
+  isSelfPost () {
+    var chosen = this.getChosen()
+
+    if (chosen) return !chosen.domain
+    else return false
   }
 
   changeSelection (i) {
@@ -166,6 +175,7 @@ export default class App extends Component {
     this.setState({ display })
   }
 
+  // TODO: Move to Redux
   fetch () {
     this.setState({ loading: true, failed: false })
 
@@ -187,12 +197,5 @@ export default class App extends Component {
     }).catch(response => {
       this.setState({ failed: true, loading: false })
     })
-  }
-
-  isSelfPost () {
-    var chosen = this.getChosen()
-
-    if (chosen) return !chosen.domain
-    else return false
   }
 }

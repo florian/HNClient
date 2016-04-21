@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import Modal from 'simple-react-modal'
+import styles from './KeyboardShortcutInfo.styl'
+
 import key from 'keymaster'
 
-import styles from './KeyboardShortcutInfo.styl'
+import Modal from 'simple-react-modal'
 
 const Shortcut = ({ label, char }) => {
   return <li>

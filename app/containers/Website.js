@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import styles from './Website.styl'
 
-import StoryActionMenu from './StoryActionMenu'
-
 import Tooltip from 'react-tooltip'
+import StoryActionMenu from '../components/StoryActionMenu'
 
 const readabilityCode = "((function(){window.baseUrl='//www.readability.com';window.readabilityToken='';var s=document.createElement('script');s.setAttribute('type','text/javascript');s.setAttribute('charset','UTF-8');s.setAttribute('src',baseUrl+'/bookmarklet/read.js');document.documentElement.appendChild(s);})())"
 

@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-import axios from 'axios'
 import styles from './App.styl'
 
 import key from 'keymaster'
 
 import StoryList from '../components/StoryList'
 import Comments from './Comments'
-import Website from '../components/Website'
+import Website from './Website'
 import Resizer from '../components/Resizer'
 import KeyboardShortcutInfo from '../components/KeyboardShortcutInfo'
+
+import axios from 'axios'
 
 export default class App extends Component {
   constructor (props, context) {

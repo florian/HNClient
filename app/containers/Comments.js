@@ -1,17 +1,16 @@
 import React, { Component, PropTypes } from 'react'
-import axios from 'axios'
 import styles from './Comments.styl'
 
+import {shell} from 'electron'
 import key from 'keymaster'
 
-import {shell} from 'electron'
-
+import Tooltip from 'react-tooltip'
 import CommentList from '../components/CommentList'
 import UserLink from '../components/UserLink'
 import CommentsActionMenu from '../components/CommentsActionMenu'
 import Poll from '../components/Poll'
 
-import Tooltip from 'react-tooltip'
+import axios from 'axios'
 
 export default class Comments extends Component {
   static propTypes = {

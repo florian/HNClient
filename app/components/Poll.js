@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-
 import styles from './Poll.styl'
 
 export default class Comments extends Component {

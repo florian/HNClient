@@ -1,7 +1,7 @@
-import readStories from '../store/ReadStories'
-
 import React, { Component } from 'react'
 import styles from './StoryListItem.styl'
+
+import readStories from '../store/ReadStories'
 
 export default class StoryListItem extends Component {
   static propTypes = {

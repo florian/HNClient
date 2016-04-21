@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import styles from './CommentList.styl'
 
-import UserLink from './UserLink.js'
-
+import { shell, clipboard } from 'electron'
 import key from 'keymaster'
 import scrollIntoView from 'scroll-iv'
 
-import { shell, clipboard } from 'electron'
+import UserLink from './UserLink.js'
 
 export default class CommentList extends Component {
   static propTypes = {

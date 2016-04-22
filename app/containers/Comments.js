@@ -179,7 +179,7 @@ export default class Comments extends Component {
 
   // TODO: Move to Redux
   getSelectedId () {
-    return this.flattendComments ? this.flattendComments[this.state.selected].id : undefined
+    return this.flattendComments && this.flattenComments.length > 0 ? this.flattendComments[this.state.selected].id : undefined
   }
 
   flattenComments (data) {

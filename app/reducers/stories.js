@@ -2,7 +2,7 @@ import { INCREMENT_COUNTER, DECREMENT_COUNTER } from '../actions/stories'
 
 import {
   SELECT_PREVIOUS, SELECT_NEXT, CHANGE_SELECTION, CHANGE_WEBSITE_WIDTH, CHANGE_RESOURCE,
-  START_RESIZING, END_RESIZING, CHANGE_DISPLAY, CYCLE_DISPLAY, FETCH, FETCH_SECOND
+  START_RESIZING, END_RESIZING, CHANGE_DISPLAY, CYCLE_DISPLAY, SET_LOADING, SET_LOADING_SECOND_PAGE, SET_FAILED, SET_DATA
 } from '../actions/stories'
 
 const defaultState = {
@@ -18,9 +18,23 @@ const defaultState = {
 }
 
 export default function counter(state = defaultState, action) {
-  switch (action.type) {
+  let { type, ...changes } = action
+
+  switch (type) {
     case CHANGE_SELECTION:
-      state.selected = action.index
+      return { ...state, ...changes }
+    case SET_LOADING:
+      return { ...state, loading: true, failed: false }
+    case SET_LOADING_SECOND_PAGE:
+      return { ...state, loading: true, loadedSecond: true, failed: false }
+    case SET_FAILED:
+      return { ...state, loading: false, failed: true }
+    case SET_DATA:
+      return { ...state, loading: false, failed: false, ...changes }
+    case CHANGE_RESOURCE:
+      return { ...state, ...changes }
+    case CHANGE_DISPLAY:
+      return { ...state, ...changes }
     default:
       return state
   }

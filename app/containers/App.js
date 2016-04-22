@@ -9,36 +9,26 @@ import Website from './Website'
 import Resizer from '../components/Resizer'
 import KeyboardShortcutInfo from '../components/KeyboardShortcutInfo'
 
-import axios from 'axios'
-
 export default class App extends Component {
   constructor (props, context) {
     super(props, context)
-    console.log(props)
 
     this.state = {
-      loading: true,
-      failed: false,
-      resource: 'news',
-      data: [],
-      loadedSecond: false, // Was the second top stories page loaded?
-      selected: undefined,
       resizing: false,
-      websiteWidth: 60, // in percent
-      display: 'both' // both, link, comments
+      websiteWidth: 60 // in percent
     }
   }
 
   componentDidMount () {
-    this.fetch()
-    key('k', 'all', this.selectPrev.bind(this))
-    key('j', 'all', this.selectNext.bind(this))
-    key('l', 'all', this.cycleDisplay.bind(this))
-    key('r', 'all', this.fetch.bind(this))
+    this.props.fetch()
+    key('k', 'all', this.props.selectPrevious)
+    key('j', 'all', this.props.selectNext)
+    key('l', 'all', this.props.cycleDisplay)
+    key('r', 'all', this.props.fetch)
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (prevState.resource !== this.state.resource) this.fetch()
+    if (prevProps.stories.resource !== this.props.stories.resource) this.props.fetch()
   }
 
   componentWillUnmount () {
@@ -54,18 +44,18 @@ export default class App extends Component {
     return (
       <div className={className}>
         <StoryList
-          data={this.state.data}
-          selected={this.state.selected}
-          changeSelection={this.changeSelection.bind(this)}
-          onResourceChange={this.changeResource.bind(this)}
-          resource={this.state.resource}
-          onDisplayChange={this.onDisplayChange.bind(this)}
-          display={this.state.display}
+          data={this.props.stories.data}
+          selected={this.props.stories.selected}
+          changeSelection={this.props.changeSelection}
+          onResourceChange={this.props.changeResource}
+          resource={this.props.stories.resource}
+          onDisplayChange={this.props.changeDisplay}
+          display={this.props.stories.display}
           isSelfPost={this.isSelfPost()}
-          loading={this.state.loading}
-          onReload={this.fetch.bind(this)}
-          failed={this.state.failed}
-          onWaypoint={this.fetchSecond.bind(this)}
+          loading={this.props.stories.loading}
+          onReload={this.props.fetch.bind(this)}
+          failed={this.props.stories.failed}
+          onWaypoint={this.props.fetchSecond.bind(this)}
         />
 
         {this.renderChosen()}
@@ -80,7 +70,7 @@ export default class App extends Component {
     const item = this.getChosen()
     if (!item) return false
 
-    var display = this.state.display
+    var display = this.props.stories.display
     if (this.isSelfPost()) display = 'comments'
 
     return <div>
@@ -110,9 +100,7 @@ export default class App extends Component {
 
   // TODO: Move to Redux?
   getChosen () {
-    const state = this.state
-
-    if (state.selected !== undefined) return state.data[state.selected]
+    if (this.props.stories.selected !== undefined) return this.props.stories.data[this.props.stories.selected]
     else return false
   }
 
@@ -122,24 +110,6 @@ export default class App extends Component {
 
     if (chosen) return !chosen.domain
     else return false
-  }
-
-  changeSelection (i) {
-    this.setState({ selected: i })
-  }
-
-  selectPrev () {
-    const selected = Math.max(this.state.selected - 1, 0)
-    this.setState({ selected })
-  }
-
-  selectNext () {
-    const selected = Math.min(this.state.selected + 1, this.state.data.length - 1)
-    this.setState({ selected })
-  }
-
-  changeResource (key) {
-    this.setState({ resource: key })
   }
 
   // Returns true or false indicating if the resize was accepted
@@ -160,44 +130,5 @@ export default class App extends Component {
 
   onResizeEnd () {
     this.setState({ resizing: false })
-  }
-
-  onDisplayChange (display) {
-    this.setState({ display })
-  }
-
-  cycleDisplay () {
-    const current = this.state.display
-    var display
-
-    if (current === 'both') display = 'link'
-    else if (current === 'link') display = 'comments'
-    else if (current === 'comments') display = 'link'
-
-    this.setState({ display })
-  }
-
-  // TODO: Move to Redux
-  fetch () {
-    this.setState({ loading: true, failed: false })
-
-    axios.get(`https://node-hnapi.herokuapp.com/${this.state.resource}`).then((response) => {
-    // axios.get(`https://node-hnapi.herokuapp.com/best`).then(response => {
-      this.setState({ data: response.data, loading: false, selected: 0, loadedSecond: false })
-    }).catch((response) => {
-      this.setState({ failed: true, loading: false })
-    })
-  }
-
-  fetchSecond () {
-    if (this.state.resource !== 'news' || this.state.loadedSecond) return false
-
-    this.setState({ loading: true, failed: false, loadedSecond: true })
-
-    axios.get('https://node-hnapi.herokuapp.com/news2').then((response) => {
-      this.setState({ data: this.state.data.concat(response.data), loading: false })
-    }).catch((response) => {
-      this.setState({ failed: true, loading: false })
-    })
   }
 }

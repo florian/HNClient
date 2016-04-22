@@ -14,9 +14,9 @@ export default class StoryListItem extends Component {
     this.markReadIfSelected()
   }
 
-  componentDidUpdate () {
+  componentDidUpdate (prevProps, prevState) {
     this.markReadIfSelected()
-    if (this.props.isSelected) this.refs.container.scrollIntoViewIfNeeded(false)
+    if (this.props.isSelected && !prevProps.isSelected) this.refs.container.scrollIntoViewIfNeeded(false)
   }
 
   render () {

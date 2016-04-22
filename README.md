@@ -11,8 +11,8 @@
 - Automatically loads new articles if you scrolled down far enough
 - It's Open Source, you can change it however you like! :)
 
-!(https://i.imgur.com/L3eyTqZ.png)
-!(https://i.imgur.com/Mqd174W.png)
+![](https://i.imgur.com/L3eyTqZ.png)
+![](https://i.imgur.com/Mqd174W.png)
 
 ## Tech overview
 - Electron

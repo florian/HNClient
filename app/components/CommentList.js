@@ -42,7 +42,7 @@ export default class CommentList extends Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    this.getSubCommentsIds(this.props.data.comments)
+    if (prevProps.data.id !== this.props.data.id) this.getSubCommentsIds(this.props.data.comments)
 
     if (this.isSelected()) scrollIntoView(this.refs.container)
 

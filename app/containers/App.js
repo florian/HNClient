@@ -10,15 +10,6 @@ import Resizer from '../components/Resizer'
 import KeyboardShortcutInfo from '../components/KeyboardShortcutInfo'
 
 export default class App extends Component {
-  constructor (props, context) {
-    super(props, context)
-
-    this.state = {
-      resizing: false,
-      websiteWidth: 60 // in percent
-    }
-  }
-
   componentDidMount () {
     this.props.fetch()
     key('k', 'all', this.props.selectPrevious)
@@ -39,7 +30,7 @@ export default class App extends Component {
   }
 
   render () {
-    const className = this.state.resizing ? styles.resizing : ''
+    const className = this.props.stories.resizing ? styles.resizing : ''
 
     return (
       <div className={className}>
@@ -70,21 +61,21 @@ export default class App extends Component {
     const item = this.getChosen()
     if (!item) return false
 
-    var display = this.props.stories.display
+    var { display, websiteWidth } = this.props.stories
     if (this.isSelfPost()) display = 'comments'
 
     return <div>
       <Website item={item}
-        width={display === 'link' ? 100 : this.state.websiteWidth}
+        width={display === 'link' ? 100 : websiteWidth}
         show={display !== 'comments'} />
 
       <Resizer onResize={this.onResize.bind(this)}
-        onResizeEnd={this.onResizeEnd.bind(this)}
-        width={this.state.websiteWidth}
+        onResizeEnd={this.props.disableResizing}
+        width={websiteWidth}
         show={display === 'both'} />
 
       <Comments id={item.id}
-        width={display === 'comments' ? 100 : 100 - this.state.websiteWidth}
+        width={display === 'comments' ? 100 : 100 - websiteWidth}
         show={display !== 'link'} />
     </div>
   }
@@ -114,21 +105,17 @@ export default class App extends Component {
 
   // Returns true or false indicating if the resize was accepted
   onResize (px) {
-    this.setState({ resizing: true })
+    this.props.enableResizing()
 
     const remaining = window.innerWidth - 401
-    const absolute = this.state.websiteWidth / 100 * remaining + px
+    const absolute = this.props.stories.websiteWidth / 100 * remaining + px
     const percent = absolute / remaining * 100
 
     if (absolute > 300 && remaining - absolute > 350) {
-      this.setState({ websiteWidth: percent })
+      this.props.setWebsiteWidth(percent)
       return true
     } else {
       return false
     }
-  }
-
-  onResizeEnd () {
-    this.setState({ resizing: false })
   }
 }

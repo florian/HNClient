@@ -5,8 +5,9 @@ export const SELECT_NEXT = 'SELECT_NEXT'
 export const CHANGE_SELECTION = 'CHANGE_SELECTION'
 export const CHANGE_WEBSITE_WIDTH = 'CHANGE_WEBSITE_WIDTH'
 export const CHANGE_RESOURCE = 'CHANGE_RESOURCE'
-export const START_RESIZING = 'START_RESIZING'
-export const END_RESIZING = 'END_RESIZING'
+export const ENABLE_RESIZING = 'ENABLE_RESIZING'
+export const DISABLE_RESIZING = 'DISABLE_RESIZING'
+export const SET_WEBSITE_WIDTH = 'SET_WEBSITE_WIDTH'
 export const CHANGE_DISPLAY = 'CHANGE_DISPLAY'
 export const CYCLE_DISPLAY = 'CYCLE_DISPLAY'
 export const SET_LOADING = 'SET_LOADING'
@@ -53,15 +54,22 @@ export function changeResource (resource) {
   }
 }
 
-export function startResizing () {
+export function enableResizing () {
   return {
-    type: START_RESIZING
+    type: ENABLE_RESIZING
   }
 }
 
-export function endResizing () {
+export function disableResizing () {
   return {
-    type: END_RESIZING
+    type: DISABLE_RESIZING
+  }
+}
+
+export function setWebsiteWidth (websiteWidth) {
+  return {
+    type: SET_WEBSITE_WIDTH,
+    websiteWidth
   }
 }
 

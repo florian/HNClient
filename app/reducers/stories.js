@@ -1,8 +1,8 @@
 import { INCREMENT_COUNTER, DECREMENT_COUNTER } from '../actions/stories'
 
 import {
-  SELECT_PREVIOUS, SELECT_NEXT, CHANGE_SELECTION, CHANGE_WEBSITE_WIDTH, CHANGE_RESOURCE,
-  START_RESIZING, END_RESIZING, CHANGE_DISPLAY, CYCLE_DISPLAY, SET_LOADING, SET_LOADING_SECOND_PAGE, SET_FAILED, SET_DATA
+  SELECT_PREVIOUS, SELECT_NEXT, CHANGE_SELECTION, CHANGE_WEBSITE_WIDTH, CHANGE_RESOURCE, ENABLE_RESIZING, DISABLE_RESIZING,
+  SET_WEBSITE_WIDTH, CHANGE_DISPLAY, CYCLE_DISPLAY, SET_LOADING, SET_LOADING_SECOND_PAGE, SET_FAILED, SET_DATA
 } from '../actions/stories'
 
 const defaultState = {
@@ -34,6 +34,12 @@ export default function counter(state = defaultState, action) {
     case CHANGE_RESOURCE:
       return { ...state, ...changes }
     case CHANGE_DISPLAY:
+      return { ...state, ...changes }
+    case ENABLE_RESIZING:
+      return { ...state, resizing: true }
+    case DISABLE_RESIZING:
+      return { ...state, resizing: false }
+    case SET_WEBSITE_WIDTH:
       return { ...state, ...changes }
     default:
       return state

@@ -6,7 +6,7 @@
   "description": "Just another client for HN",
   "main": "main.js",
   "scripts": {
-    "lint": "standard 'app/*.js' 'app/**/*.js'",
+    "lint": "standard",
     "hot-server": "node -r babel-register server.js",
     "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/.bin/webpack --config webpack.config.electron.js --progress --profile --colors",
     "build-renderer": "cross-env NODE_ENV=production node -r babel-register ./node_modules/.bin/webpack --config webpack.config.production.js --progress --profile --colors",

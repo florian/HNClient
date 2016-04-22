@@ -7,7 +7,7 @@ import DevTools from '../containers/DevTools'
 
 const logger = createLogger({
   level: 'info',
-  collapsed: true,
+  collapsed: true
 })
 
 const enhancer = compose(
@@ -16,7 +16,7 @@ const enhancer = compose(
   DevTools.instrument()
 )
 
-export default function configureStore(initialState) {
+export default function configureStore (initialState) {
   const store = createStore(rootReducer, initialState, enhancer)
 
   if (module.hot) {

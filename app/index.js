@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import configureStore from './store/configureStore'
 
 import './app.global.styl'
-import App from './containers/App'
 import AppPage from './containers/AppPage'
 
 const store = configureStore()

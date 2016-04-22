@@ -37,7 +37,7 @@ export default class KeyboardShortcutInfo extends Component {
       <ul className={styles.list}>
         <Shortcut char='j' label='next story' />
         <Shortcut char='k' label='previous story' />
-        <Shortcut char='l' label="toggle between the WebView, comments and showing both. When you go to another story the view is changed to whatever display option you last chose in the menu bar" />
+        <Shortcut char='l' label='toggle between the WebView, comments and showing both. When you go to another story the view is changed to whatever display option you last chose in the menu bar' />
         <Shortcut char='n' label='next comment' />
         <Shortcut char='m' label='previous comment' />
         <Shortcut char='enter' label='fold or expand the selected comment' />

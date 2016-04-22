@@ -8,7 +8,7 @@ const enhancer = compose(
   applyMiddleware(thunk)
 )
 
-export default function configureStore(initialState) {
+export default function configureStore (initialState) {
   const store = createStore(rootReducer, initialState, enhancer)
   persistStore(store, { whitelist: [ 'stories' ] })
   return store

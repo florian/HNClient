@@ -1,7 +1,7 @@
 /* eslint max-len: 0 */
-import webpack from 'webpack';
-import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
-import baseConfig from './webpack.config.base';
+import webpack from 'webpack'
+import webpackTargetElectronRenderer from 'webpack-target-electron-renderer'
+import baseConfig from './webpack.config.base'
 
 const config = {
   ...baseConfig,
@@ -55,9 +55,9 @@ const config = {
         NODE_ENV: JSON.stringify('development')
       }
     })
-  ],
-};
+  ]
+}
 
-config.target = webpackTargetElectronRenderer(config);
+config.target = webpackTargetElectronRenderer(config)
 
-export default config;
+export default config

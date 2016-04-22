@@ -12,7 +12,7 @@
 - It's Open Source, you can change it however you like! :)
 
 ![](https://i.imgur.com/L3eyTqZ.png)
-![](https://i.imgur.com/Bk5SRXV.png)
+![](https://i.imgur.com/4e36YVo.png)
 
 ## Tech overview
 - Electron

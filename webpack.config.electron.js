@@ -1,5 +1,5 @@
-import webpack from 'webpack';
-import baseConfig from './webpack.config.base';
+import webpack from 'webpack'
+import baseConfig from './webpack.config.base'
 
 export default {
   ...baseConfig,
@@ -20,7 +20,7 @@ export default {
       }
     }),
     new webpack.BannerPlugin(
-      'require("source-map-support").install();',
+      'require("source-map-support").install()',
       { raw: true, entryOnly: false }
     ),
     new webpack.DefinePlugin({
@@ -42,4 +42,4 @@ export default {
     'font-awesome',
     'source-map-support'
   ]
-};
+}

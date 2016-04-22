@@ -7,7 +7,7 @@ let mainWindow = null
 crashReporter.start()
 
 if (process.env.NODE_ENV === 'development') {
-  require('electron-debug')()
+  require('electron-debug')({ enabled: true, showDevTools: true })
 }
 
 app.on('window-all-closed', () => app.quit() )

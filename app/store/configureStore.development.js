@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import { persistState } from 'redux-devtools'
+import { persistStore, autoRehydrate } from 'redux-persist'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import rootReducer from '../reducers'
@@ -11,13 +11,9 @@ const logger = createLogger({
 })
 
 const enhancer = compose(
+  autoRehydrate(),
   applyMiddleware(thunk, logger),
-  DevTools.instrument(),
-  persistState(
-    window.location.href.match(
-      /[?&]debug_session=([^&]+)\b/
-    )
-  )
+  DevTools.instrument()
 )
 
 export default function configureStore(initialState) {
@@ -28,6 +24,8 @@ export default function configureStore(initialState) {
       store.replaceReducer(require('../reducers'))
     )
   }
+
+  persistStore(store, { whitelist: [ 'stories' ] })
 
   return store
 }

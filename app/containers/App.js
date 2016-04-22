@@ -12,6 +12,7 @@ import KeyboardShortcutInfo from '../components/KeyboardShortcutInfo'
 export default class App extends Component {
   componentDidMount () {
     this.props.fetch()
+    this.props.cleanupReadStories()
     key('k', 'all', this.props.selectPrevious)
     key('j', 'all', this.props.selectNext)
     key('l', 'all', this.props.cycleDisplay)
@@ -44,9 +45,9 @@ export default class App extends Component {
           display={this.props.stories.display}
           isSelfPost={this.isSelfPost()}
           loading={this.props.stories.loading}
-          onReload={this.props.fetch.bind(this)}
+          onReload={this.props.fetch}
           failed={this.props.stories.failed}
-          onWaypoint={this.props.fetchSecond.bind(this)}
+          onWaypoint={this.props.fetchSecond}
         />
 
         {this.renderChosen()}
@@ -89,13 +90,11 @@ export default class App extends Component {
     }
   }
 
-  // TODO: Move to Redux?
   getChosen () {
     if (this.props.stories.selected !== undefined) return this.props.stories.data[this.props.stories.selected]
     else return false
   }
 
-  // TODO: Move to Redux?
   isSelfPost () {
     var chosen = this.getChosen()
 

@@ -14,6 +14,8 @@ export const SET_LOADING = 'SET_LOADING'
 export const SET_LOADING_SECOND_PAGE = 'SET_LOADING_SECOND_PAGE'
 export const SET_FAILED = 'SET_FAILED'
 export const SET_DATA = 'SET_DATA'
+export const MARK_STORY_AS_READ = 'MARK_STORY_AS_READ '
+export const CLEANUP_READ_STORIES = 'CLEANUP_READ_STORIES '
 
 export function selectPrevious () {
   return (dispatch, getState) => {
@@ -155,5 +157,19 @@ export function fetchSecond () {
     }
 
     api.getStories('news2', onSuccess, onError)
+  }
+}
+
+export function markStoryAsRead (id) {
+  return {
+    type: MARK_STORY_AS_READ,
+    id,
+    timestamp: Date.now()
+  }
+}
+
+export function cleanupReadStories () {
+  return {
+    type: CLEANUP_READ_STORIES
   }
 }

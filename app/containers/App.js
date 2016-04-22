@@ -14,6 +14,7 @@ import axios from 'axios'
 export default class App extends Component {
   constructor (props, context) {
     super(props, context)
+    console.log(props)
 
     this.state = {
       loading: true,
@@ -22,6 +23,7 @@ export default class App extends Component {
       data: [],
       loadedSecond: false, // Was the second top stories page loaded?
       selected: undefined,
+      resizing: false,
       websiteWidth: 60, // in percent
       display: 'both' // both, link, comments
     }

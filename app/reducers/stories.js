@@ -18,6 +18,7 @@ const defaultState = {
   resizing: false,
   websiteWidth: 60, // in percent
   display: 'both', // both, link, comments
+  preferedDisplay: 'both',
   readStories: {}
 }
 
@@ -29,7 +30,8 @@ export default function counter(state = defaultState, action) {
       var result = action.payload.stories
       return { ...result, selected: 0 }
     case CHANGE_SELECTION:
-      return { ...state, ...changes }
+      var display = state.preferedDisplay
+      return { ...state, ...changes, display }
     case SET_LOADING:
       return { ...state, loading: true, failed: false }
     case SET_LOADING_SECOND_PAGE:
@@ -41,7 +43,19 @@ export default function counter(state = defaultState, action) {
     case CHANGE_RESOURCE:
       return { ...state, ...changes }
     case CHANGE_DISPLAY:
-      return { ...state, ...changes }
+      var { display } = changes
+      const preferedDisplay = display !== "comments" ? display : state.preferedDisplay
+      return { ...state, display, preferedDisplay }
+    case CYCLE_DISPLAY:
+      var { display, preferedDisplay } = state
+        if (preferedDisplay === "link") {
+          display = display === "link" ? "comments" : "link"
+        } else {
+          if (display === "both") display = "link"
+          else if (display === "link") display = "comments"
+          else if (display === "comments") display = "both"
+        }
+      return { ...state, display }
     case ENABLE_RESIZING:
       return { ...state, resizing: true }
     case DISABLE_RESIZING:

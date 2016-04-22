@@ -83,15 +83,8 @@ export function changeDisplay (display) {
 }
 
 export function cycleDisplay () {
-  return (dispatch, getState) => {
-    const { display } = getState().stories
-    var newDisplay = ''
-
-    if (display === 'both') newDisplay = 'link'
-    else if (display === 'link') newDisplay = 'comments'
-    else if (display === 'comments') newDisplay = 'link'
-
-    dispatch(changeDisplay(newDisplay))
+  return {
+    type: CYCLE_DISPLAY
   }
 }
 

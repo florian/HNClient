@@ -10,6 +10,9 @@
 - Automatically loads new articles if you scrolled down far enough
 - It's Open Source, you can change it however you like! :)
 
+![screen1](https://cloud.githubusercontent.com/assets/1564556/14753174/d7324696-08d3-11e6-93dd-ff98b399d91c.png)
+![screen2](https://i.imgur.com/NWO6ESn.png)
+
 ## Tech overview
 - Electron
 - ES6, React and Redux

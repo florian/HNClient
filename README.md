@@ -6,11 +6,12 @@
 - Optional split screen: View articles and their comments next to each other
 - Easily navigate the App with Vim like keyboard shortcuts
 - Comments are foldable
-- No aspect of HN was forgotten, e.g. you can view HN polls inside the app
+- Things that are overlooked by most HN apps weren't forgotten, stuff like
+  displaying HN polls, rendering PDFs or not showing a website for Ask HN posts
 - Automatically loads new articles if you scrolled down far enough
 - It's Open Source, you can change it however you like! :)
 
-![screen1](https://cloud.githubusercontent.com/assets/1564556/14753174/d7324696-08d3-11e6-93dd-ff98b399d91c.png)
+![screen1](https://i.imgur.com/L3eyTqZ.png)
 ![screen2](https://i.imgur.com/NWO6ESn.png)
 
 ## Tech overview

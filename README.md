@@ -36,3 +36,29 @@
 - JavaScript [standard](https://github.com/feross/standard) style
 - Mostly follows the conventions of the [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
 - Uses the nice [node-hnapi](https://github.com/cheeaun/node-hnapi) which wraps HN's official API. HN's API itself is sadly not very usable so far, e.g. to fetch all 200 comments of a thread we'd need to do 200 requests, which would greatly degrade user experience. Thanks to node-hnapi this app does not need to do that.
+
+
+- - -
+
+## A word on packaging
+
+Currently the Windows and Linux builds don't use an installer program to bundle everything into a single file. I guess that would be the optimal packaging but I don't have any experience programming for Windows / Linux. So I'm hoping someone might contribute if it's important to them :)
+
+## Contributing
+
+Please follow the JavaScript [standard](https://github.com/feross/standard) style!
+
+### Developing
+
+```sh
+# Run both next to each other. The app will then automatically hot reload changed modules
+$ npm run hot-server
+$ npm run start-hot
+```
+
+### Packaging
+```sh
+$ npm run build
+$ npm run package # to package for the current platform
+$ npm run package-all # for all platforms
+```

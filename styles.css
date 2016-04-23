@@ -36,6 +36,7 @@ header {
   border-bottom: 1px solid #8c4905;
   border-top: 1px solid #8c4905;
   text-shadow: 1px 1px rgba(0,0,0,0.2);
+  -webkit-font-smoothing: antialiased;
 }
 header p + p {
   margin-top: 15px;

@@ -9,6 +9,31 @@
 			width: 49%
 			max-width: 400px
 
+@media (max-width: 925px)
+	.overview
+		ul li:nth-child(n)
+				height: 600px
+
+				&.imgshadow
+					noop: true
+
+				.description
+					display: block;
+					width: 100%;
+					max-width: 100%;
+					left: 0;
+					top: 460px;
+					padding: 0 40px;
+					box-sizing: border-box;
+
+				img
+					width: 630px
+					max-width: 100%
+					margin: 0 auto
+					display: block
+					left: 50%
+					margin-left: -315px
+
 @media (max-width: 770px)
 	.features
 		ul li
@@ -16,6 +41,22 @@
 
 			p
 				height: auto
+
+@media (max-width: 630px)
+	.overview
+		ul li:nth-child(n)
+			height: auto
+			margin: 0 30px
+			padding-top: 70px
+
+			img
+				position: static
+				width: 100%
+				margin-left: 0
+
+			.description
+				position: static
+				padding-top: 50px
 
 @media (max-width: 580px)
 	header

@@ -9,6 +9,8 @@ html, body
 	height: 100%
 
 body
+	width: 100%
+	overflow-x: hidden
 	background-color: #EFEFEF
 	font-family: Helvetica, "Helvetica Neue", Arial, sans-serif
 
@@ -87,9 +89,6 @@ h2
 		position: relative
 		top: -2px
 
-.imgshadow
-	box-shadow: 0 0 30px rgba(0,0,0,.5)
-
 .overview
 	.container
 		padding-bottom: 50px
@@ -100,10 +99,14 @@ h2
 	img
 		position: absolute
 		top: 35px
+		max-width: 53%
+		max-height: 400px
+		box-shadow: 0 0 30px rgba(0,0,0,.5)
 
 	.description
 		display: inline-block
 		width: 470px
+		max-width: 37%
 		position: absolute
 		top: 85px
 		line-height: 1.5

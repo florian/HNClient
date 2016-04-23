@@ -161,6 +161,7 @@ h2 {
 .features a {
   color: #108ccc;
   text-decoration: none;
+  outline: none;
 }
 .features a:hover {
   text-decoration: underline;

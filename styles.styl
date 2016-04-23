@@ -1,0 +1,91 @@
+*
+	margin: 0
+	padding: 0
+
+html, body
+	height: 100%
+
+body
+	background-color: #EFEFEF
+	font-family: Helvetica, "Helvetica Neue", Arial, sans-serif
+
+.container
+	width: 1200px
+	min-height: 100%
+	margin: 0 auto
+	text-align: center
+	background-color: white
+
+header
+	background-color: #E49B29
+	color: white
+	border-bottom: 1px solid #CC8A01
+
+h1
+	padding-top: 120px
+	font-size: 50px
+
+h2
+	padding: 40px
+	padding-top: 30px
+	padding-bottom: 50px
+	font-size: 22px
+
+.button-group
+	padding: 60px
+	padding-top: 0
+
+.button
+	color: #000
+	background-color: white
+	text-decoration: none
+	padding: 20px
+	border: 1px solid #8E6B04
+	margin-right: 15px
+	border-radius: 9px
+
+	&:hover
+		opacity: 1
+
+	&:last-child
+		margin-right: 0
+
+.overview
+	ul
+		list-style: none
+
+	img
+		position: absolute
+		top: 35px
+
+	.description
+		display: inline-block
+		width: 470px
+		position: absolute
+		top: 85px
+		line-height: 1.5
+
+	h3
+		font-size: 25px
+		padding-bottom: 25px
+
+	li
+		position: relative
+		height: 450px
+
+		+ li
+			margin-top: 20px
+
+		&:nth-child(2n + 1)
+			img
+				left: 35px
+
+			.description
+				right: 35px
+
+		&:nth-child(2n)
+			img
+				right: 35px
+
+			.description
+				left: 35px

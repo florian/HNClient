@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  background-color: #efefef;
+  font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+}
+.container {
+  width: 1200px;
+  min-height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #fff;
+}
+header {
+  background-color: #e49b29;
+  color: #fff;
+  border-bottom: 1px solid #cc8a01;
+}
+h1 {
+  padding-top: 120px;
+  font-size: 50px;
+}
+h2 {
+  padding: 40px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+  font-size: 22px;
+}
+.button-group {
+  padding: 60px;
+  padding-top: 0;
+}
+.button {
+  color: #000;
+  background-color: #fff;
+  text-decoration: none;
+  padding: 20px;
+  border: 1px solid #8e6b04;
+  margin-right: 15px;
+  border-radius: 9px;
+}
+.button:hover {
+  opacity: 1;
+}
+.button:last-child {
+  margin-right: 0;
+}
+.overview ul {
+  list-style: none;
+}
+.overview img {
+  position: absolute;
+  top: 35px;
+}
+.overview .description {
+  display: inline-block;
+  width: 470px;
+  position: absolute;
+  top: 85px;
+  line-height: 1.5;
+}
+.overview h3 {
+  font-size: 25px;
+  padding-bottom: 25px;
+}
+.overview li {
+  position: relative;
+  height: 450px;
+}
+.overview li + li {
+  margin-top: 20px;
+}
+.overview li:nth-child(2n + 1) img {
+  left: 35px;
+}
+.overview li:nth-child(2n + 1) .description {
+  right: 35px;
+}
+.overview li:nth-child(2n) img {
+  right: 35px;
+}
+.overview li:nth-child(2n) .description {
+  left: 35px;
+}

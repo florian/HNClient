@@ -43,6 +43,8 @@ header p + p {
 }
 h1 {
   padding-top: 100px;
+  padding-left: 30px;
+  padding-right: 30px;
   font-size: 50px;
 }
 h2 {
@@ -56,12 +58,16 @@ h2 {
   padding-top: 0;
 }
 .button {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 220px;
+  padding-bottom: 23px;
   color: #2b2b2b;
   background-color: #f5f5f5;
   background-image: linear-gradient(to top, #d2d2d2, #f5f5f5);
   text-decoration: none;
   padding: 20px;
-  border: 1px solid #9e5406;
+  border: 2px solid #9a6705;
   margin-right: 15px;
   border-radius: 9px;
   opacity: 0.9;
@@ -80,9 +86,11 @@ h2 {
 }
 .button i {
   font-size: 22px;
-  position: relative;
-  top: 3px;
   margin-right: 3px;
+}
+.button span {
+  position: relative;
+  top: -2px;
 }
 .imgshadow {
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
@@ -178,4 +186,20 @@ h2 {
   font-family: monospace;
   border: 1px solid #8e8e8e;
   border-bottom-width: 3px;
+}
+@media (max-width: 580px) {
+  header .button {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 15px;
+  }
+  header .button:last-child {
+    margin: 0 auto;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  body .header-container,
+  body .container {
+    width: 100%;
+  }
 }

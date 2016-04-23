@@ -38,6 +38,8 @@ header
 
 h1
 	padding-top: 100px
+	padding-left: 30px
+	padding-right: 30px
 	font-size: 50px
 
 h2
@@ -51,12 +53,16 @@ h2
 	padding-top: 0
 
 .button
+	display: inline-block
+	box-sizing: border-box
+	width: 220px
+	padding-bottom: 23px
 	color: #2B2B2B
 	background-color: #F5F5F5
 	background-image: linear-gradient(to top, #D2D2D2, #f5f5f5)
 	text-decoration: none
 	padding: 20px
-	border: 1px solid rgb(158, 84, 6)
+	border: 2px solid #9A6705;
 	margin-right: 15px
 	border-radius: 9px
 	opacity: .9
@@ -75,9 +81,11 @@ h2
 
 	i
 		font-size: 22px
-		position: relative
-		top: 3px
 		margin-right: 3px
+
+	span
+		position: relative
+		top: -2px
 
 .imgshadow
 	box-shadow: 0 0 30px rgba(0,0,0,.5)
@@ -177,3 +185,5 @@ h2
 	font-family: monospace
 	border: 1px solid #8E8E8E
 	border-bottom-width: 3px
+
+@require './responsive.styl'

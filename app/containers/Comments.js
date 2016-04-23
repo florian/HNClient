@@ -10,7 +10,7 @@ import UserLink from '../components/UserLink'
 import CommentsActionMenu from '../components/CommentsActionMenu'
 import Poll from '../components/Poll'
 
-import axios from 'axios'
+import api from '../api/comments.js'
 
 export default class Comments extends Component {
   static propTypes = {
@@ -252,27 +252,27 @@ export default class Comments extends Component {
 
   fetch () {
     this.setState({ loading: true, failed: false })
+    api.getComments(this.props.id, this.fetchSuccessful.bind(this), this.fetchError.bind(this))
+  }
 
-    axios.get(`https://node-hnapi.herokuapp.com/item/${this.props.id}`).then((response) => {
-    // axios.get(`https://node-hnapi.herokuapp.com/item/3717754`).then(response => {
+  fetchSuccessful (response) {
+    // These values are not part of the component state because they don't
+    // influence render itself. They are used by functions like selectPrev/selectNext
+    // that have their own state properties
+    this.commentData = response.data
+    this.flattendComments = this.flattenComments(this.commentData)
 
-      // These values are not part of the component state because they don't
-      // influence render itself. They are used by functions like selectPrev/selectNext
-      // that have their own state properties
-      this.commentData = response.data
-      this.flattendComments = this.flattenComments(this.commentData)
-
-      this.setState({
-        comments: response.data.comments,
-        count: response.data.comments_count,
-        data: response.data,
-        loading: false,
-        failed: false,
-        selected: 0
-      })
-    }).catch((response) => {
-      this.setState({ loading: false, failed: true })
+    this.setState({
+      comments: response.data.comments,
+      count: response.data.comments_count,
+      data: response.data,
+      loading: false,
+      failed: false,
+      selected: 0
     })
   }
 
+  fetchError () {
+    this.setState({ loading: false, failed: true })
+  }
 }

@@ -54,6 +54,7 @@ h2 {
   padding-top: 30px;
   padding-bottom: 50px;
   font-size: 22px;
+  line-height: 1.5;
 }
 .button-group {
   padding: 60px;
@@ -242,6 +243,7 @@ h2 {
     font-size: 40px;
   }
   h2 {
+    padding-top: 15px;
     padding-bottom: 20px;
     font-size: 18px;
   }

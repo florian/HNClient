@@ -29,9 +29,10 @@ body {
   border-top: 0;
 }
 header {
-  background-color: #e49b29;
+  background-color: #e07506;
   color: #fff;
-  border-bottom: 1px solid #cc8a01;
+  border-bottom: 1px solid #8c4905;
+  border-top: 1px solid #8c4905;
 }
 h1 {
   padding-top: 120px;
@@ -48,11 +49,11 @@ h2 {
   padding-top: 0;
 }
 .button {
-  color: #000;
-  background-color: #fff;
+  color: #2b2b2b;
+  background-color: #f5f5f5;
   text-decoration: none;
   padding: 20px;
-  border: 1px solid #8e6b04;
+  border: 1px solid #443302;
   margin-right: 15px;
   border-radius: 9px;
 }
@@ -61,6 +62,12 @@ h2 {
 }
 .button:last-child {
   margin-right: 0;
+}
+.button i {
+  font-size: 22px;
+  position: relative;
+  top: 3px;
+  margin-right: 3px;
 }
 .imgshadow {
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
@@ -85,6 +92,9 @@ h2 {
 .overview h3 {
   font-size: 25px;
   padding-bottom: 25px;
+}
+.overview p {
+  color: #424242;
 }
 .overview li {
   position: relative;

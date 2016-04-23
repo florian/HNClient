@@ -37,8 +37,11 @@ header {
   border-top: 1px solid #8c4905;
   text-shadow: 1px 1px rgba(0,0,0,0.2);
 }
+header p + p {
+  margin-top: 15px;
+}
 h1 {
-  padding-top: 120px;
+  padding-top: 100px;
   font-size: 50px;
 }
 h2 {

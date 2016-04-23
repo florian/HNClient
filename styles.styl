@@ -24,7 +24,9 @@ body
 	border-top: 0
 
 header
-	background-color: #e07506
+	box-shadow: inset 0 0 70px rgba(0,0,0,.1)
+	background-color: #D26F08
+	background-image: linear-gradient(to top, #C1670A, #e07506)
 	color: white
 	border-bottom: 1px solid #8C4905
 	border-top: 1px solid #8C4905
@@ -46,9 +48,10 @@ h2
 .button
 	color: #2B2B2B
 	background-color: #F5F5F5
+	background-image: linear-gradient(to top, #D2D2D2, #f5f5f5)
 	text-decoration: none
 	padding: 20px
-	border: 1px solid #443302
+	border: 1px solid rgb(158, 84, 6)
 	margin-right: 15px
 	border-radius: 9px
 	opacity: .9
@@ -56,6 +59,10 @@ h2
 
 	&:hover
 		opacity: 1
+
+	&:active
+		position: relative
+		top: 1px
 
 	&:last-child
 		margin-right: 0

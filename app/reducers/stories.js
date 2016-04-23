@@ -28,6 +28,7 @@ export default function counter (state = defaultState, action) {
   switch (type) {
     case REHYDRATE:
       var result = action.payload.stories
+      if (result === undefined) return defaultState
       return { ...result, selected: 0, display: result.preferedDisplay }
     case CHANGE_SELECTION:
       display = state.preferedDisplay

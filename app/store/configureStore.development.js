@@ -10,11 +10,20 @@ const logger = createLogger({
   collapsed: true
 })
 
-const enhancer = compose(
-  autoRehydrate(),
-  applyMiddleware(thunk, logger),
-  DevTools.instrument()
-)
+var enhancer
+
+if (localStorage.getItem('reduxPersist:stories') != null) {
+  enhancer = compose(
+    autoRehydrate(),
+    applyMiddleware(thunk),
+    DevTools.instrument()
+  )
+} else {
+  enhancer = compose(
+    applyMiddleware(thunk, logger),
+    DevTools.instrument()
+  )
+}
 
 export default function configureStore (initialState) {
   const store = createStore(rootReducer, initialState, enhancer)

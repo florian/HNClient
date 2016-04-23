@@ -32,8 +32,6 @@ export default class ListHeader extends Component {
   constructor (props, context) {
     super(props, context)
 
-    console.log(props, context)
-
     this.state = {
       enabled: props.enabled
     }

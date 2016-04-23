@@ -62,3 +62,7 @@ $ npm run build
 $ npm run package # to package for the current platform
 $ npm run package-all # for all platforms
 ```
+
+### Ideas
+
+While I implemented all of the features I definitely wanted, there's also a ![list of feature ideas](https://github.com/florian/HNClient/blob/master/ideas.md).

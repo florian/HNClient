@@ -57,6 +57,7 @@ h2 {
   margin-right: 15px;
   border-radius: 9px;
   opacity: 0.9;
+  outline: none;
 }
 .button:hover {
   opacity: 1;

@@ -10,11 +10,13 @@ body {
   background-color: #efefef;
   font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
 }
+.header-container,
 .container {
   width: 1200px;
-  min-height: 100%;
   margin: 0 auto;
   text-align: center;
+}
+.container {
   background-color: #fff;
 }
 header {
@@ -50,6 +52,9 @@ h2 {
 }
 .button:last-child {
   margin-right: 0;
+}
+.imgshadow {
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
 .overview ul {
   list-style: none;

@@ -184,6 +184,8 @@ h2 {
   text-decoration: underline;
 }
 .shortcut {
+  position: relative;
+  top: -3px;
   color: #505050;
   background-color: #e0e0e0;
   padding: 3px 5px;

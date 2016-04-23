@@ -149,6 +149,7 @@ h2 {
 .features h3 {
   font-size: 19px;
   color: #484848;
+  padding: 0 20px;
 }
 .features ul {
   list-style: none;
@@ -187,6 +188,26 @@ h2 {
   border: 1px solid #8e8e8e;
   border-bottom-width: 3px;
 }
+@media (max-width: 1200px) {
+  body .header-container,
+  body .container {
+    width: 100%;
+  }
+}
+@media (max-width: 1100px) {
+  .features ul li {
+    width: 49%;
+    max-width: 400px;
+  }
+}
+@media (max-width: 770px) {
+  .features ul li {
+    width: 100%;
+  }
+  .features ul li p {
+    height: auto;
+  }
+}
 @media (max-width: 580px) {
   header .button {
     display: block;
@@ -195,11 +216,5 @@ h2 {
   }
   header .button:last-child {
     margin: 0 auto;
-  }
-}
-@media only screen and (max-width: 1200px) {
-  body .header-container,
-  body .container {
-    width: 100%;
   }
 }

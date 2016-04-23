@@ -110,7 +110,11 @@ export default class Comments extends Component {
       </span>
     }
 
-    var content = `${this.state.count} comments`
+
+    const { count } = this.state
+    var content = `${count} comment`
+    if (count !== 1) content += 's'
+
     if (this.props.width === 100) content = `${this.state.data.title} (${content})`
     return content
   }
@@ -246,7 +250,6 @@ export default class Comments extends Component {
     })
   }
 
-  // TODO: Move to Redux
   fetch () {
     this.setState({ loading: true, failed: false })
 

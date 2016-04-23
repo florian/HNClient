@@ -35,6 +35,7 @@ header {
   color: #fff;
   border-bottom: 1px solid #8c4905;
   border-top: 1px solid #8c4905;
+  text-shadow: 1px 1px rgba(0,0,0,0.2);
 }
 h1 {
   padding-top: 120px;
@@ -61,6 +62,7 @@ h2 {
   border-radius: 9px;
   opacity: 0.9;
   outline: none;
+  text-shadow: none;
 }
 .button:hover {
   opacity: 1;

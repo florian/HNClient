@@ -70,6 +70,7 @@ export default class StoryList extends Component {
           item={this.props.item}
           onGoogle={this.onGoogle.bind(this)}
           onReadability={this.onReadability.bind(this)}
+          onCache={this.onCache.bind(this)}
         />
       </h2>
 
@@ -91,6 +92,10 @@ export default class StoryList extends Component {
 
       <Tooltip place='bottom' type='dark' effect='solid' id='readablity'>
         Use Readability to make this article more readable
+      </Tooltip>
+
+      <Tooltip place='bottom' type='dark' effect='solid' id='cache'>
+        Website down? Click here to try the Google cached version
       </Tooltip>
 
       <Tooltip place='bottom' type='dark' effect='solid' id='google'>
@@ -158,5 +163,9 @@ export default class StoryList extends Component {
     } else {
       webview.executeJavaScript(readabilityCode)
     }
+  }
+
+  onCache () {
+    this.refs.webview.src = `https://webcache.googleusercontent.com/search?q=cache:${this.props.item.url}`
   }
 }

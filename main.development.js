@@ -37,9 +37,9 @@ app.on('ready', () => {
 
   if (process.platform === 'darwin') {
     template = [{
-      label: 'Electron',
+      label: 'Hacker News',
       submenu: [{
-        label: 'About ElectronReact',
+        label: 'About this app',
         selector: 'orderFrontStandardAboutPanel:'
       }, {
         type: 'separator'
@@ -49,7 +49,7 @@ app.on('ready', () => {
       }, {
         type: 'separator'
       }, {
-        label: 'Hide ElectronReact',
+        label: 'Hide Hacker News',
         accelerator: 'Command+H',
         selector: 'hide:'
       }, {
@@ -143,24 +143,24 @@ app.on('ready', () => {
     }, {
       label: 'Help',
       submenu: [{
-        label: 'Learn More',
+        label: 'Website',
         click () {
-          shell.openExternal('http://electron.atom.io')
+          shell.openExternal('https://florian.github.io/HNClient')
         }
       }, {
-        label: 'Documentation',
+        label: 'GitHub page',
         click () {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme')
+          shell.openExternal('https://github.com/florian/HNClient')
         }
       }, {
-        label: 'Community Discussions',
+        label: 'Bug tracker',
         click () {
-          shell.openExternal('https://discuss.atom.io/c/electron')
+          shell.openExternal('https://github.com/florian/HNClient/issues')
         }
       }, {
-        label: 'Search Issues',
+        label: 'Downloads',
         click () {
-          shell.openExternal('https://github.com/atom/electron/issues')
+          shell.openExternal('https://github.com/florian/HNClient/releases')
         }
       }]
     }]
@@ -210,24 +210,24 @@ app.on('ready', () => {
     }, {
       label: 'Help',
       submenu: [{
-        label: 'Learn More',
+        label: 'Website',
         click () {
-          shell.openExternal('http://electron.atom.io')
+          shell.openExternal('https://florian.github.io/HNClient')
         }
       }, {
-        label: 'Documentation',
+        label: 'GitHub page',
         click () {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme')
+          shell.openExternal('https://github.com/florian/HNClient')
         }
       }, {
-        label: 'Community Discussions',
+        label: 'Bug tracker',
         click () {
-          shell.openExternal('https://discuss.atom.io/c/electron')
+          shell.openExternal('https://github.com/florian/HNClient/issues')
         }
       }, {
-        label: 'Search Issues',
+        label: 'Downloads',
         click () {
-          shell.openExternal('https://github.com/atom/electron/issues')
+          shell.openExternal('https://github.com/florian/HNClient/releases')
         }
       }]
     }]

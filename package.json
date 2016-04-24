@@ -1,8 +1,8 @@
 {
-  "name": "HNReader",
-  "productName": "HNReader",
+  "name": "HNClient",
+  "productName": "HackerNews",
   "private": true,
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "Just another client for HN",
   "main": "main.js",
   "scripts": {

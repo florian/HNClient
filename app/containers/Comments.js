@@ -10,7 +10,7 @@ import UserLink from '../components/UserLink'
 import CommentsActionMenu from '../components/CommentsActionMenu'
 import Poll from '../components/Poll'
 
-import api from '../api/comments.js'
+import { getComments } from '../api'
 
 export default class Comments extends Component {
   static propTypes = {
@@ -252,7 +252,7 @@ export default class Comments extends Component {
 
   fetch () {
     this.setState({ loading: true, failed: false })
-    api.getComments(this.props.id, this.fetchSuccessful.bind(this), this.fetchError.bind(this))
+    getComments(this.props.id, this.fetchSuccessful.bind(this), this.fetchError.bind(this))
   }
 
   fetchSuccessful (response) {

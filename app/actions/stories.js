@@ -1,4 +1,4 @@
-import api from '../api/stories.js'
+import { getStories } from '../api'
 
 export const SELECT_PREVIOUS = 'SELECT_PREVIOUS'
 export const SELECT_NEXT = 'SELECT_NEXT'
@@ -129,7 +129,7 @@ export function fetch () {
       dispatch(setFailed())
     }
 
-    api.getStories(resource, onSuccess, onError)
+    getStories(resource, onSuccess, onError)
   }
 }
 
@@ -149,7 +149,7 @@ export function fetchSecond () {
       dispatch(setFailed())
     }
 
-    api.getStories('news2', onSuccess, onError)
+    getStories('news2', onSuccess, onError)
   }
 }
 

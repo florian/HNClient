@@ -19,7 +19,7 @@
 | action | shortcut |
 |:--|:--|
 | next story |  <kbd>j</kbd> |
-| previous story |  <kbd>l</kbd> |
+| previous story |  <kbd>k</kbd> |
 | cycle between display modes (links, comments, both) |  <kbd>l</kbd> |
 | next comment |  <kbd>n</kbd> |
 | previous comment |  <kbd>m</kbd> |

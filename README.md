@@ -1,4 +1,8 @@
 # HNClient – A desktop client for Hacker News
+
+This app lets you comfortably read Hacker News without having to open an endless amount of tabs anymore. You can choose articles to view from a sidebar and can optionally read articles and their comments next to each other on a split screen.
+The app works on Mac, Linux and Windows.
+
 ([Downloads](https://github.com/florian/HNClient/releases) | [Website](https://florian.github.io/HNClient/))
 
 ## Features

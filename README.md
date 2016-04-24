@@ -1,4 +1,5 @@
 # HNClient – A desktop client for Hacker News
+([Downloads](https://github.com/florian/HNClient/releases) | [Website](https://florian.github.io/HNClient/))
 
 ## Features
 - You can easily choose articles to view and switch to the comments, no more

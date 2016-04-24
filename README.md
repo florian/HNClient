@@ -51,7 +51,7 @@ Currently the Windows and Linux builds don't use an installer program to bundle 
 
 ## Contributing
 
-Please follow the JavaScript [standard](https://github.com/feross/standard) style!
+Please follow the JavaScript [Standard](https://github.com/feross/standard) style!
 
 ### Developing
 

@@ -70,4 +70,4 @@ $ npm run package-all # for all platforms
 
 ### Ideas
 
-While I implemented all of the features I definitely wanted, there's also a ![list of feature ideas](https://github.com/florian/HNClient/blob/master/ideas.md).
+While I implemented all of the features I definitely wanted, there's also a [list of feature ideas](https://github.com/florian/HNClient/blob/master/ideas.md).

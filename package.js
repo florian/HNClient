@@ -74,9 +74,10 @@ function startPack () {
     .then(() => del('release'))
     .then((paths) => {
       if (shouldBuildAll) {
+        console.log("build for all")
         // build for all platforms
         const archs = ['ia32', 'x64']
-        const platforms = ['linux', 'win32', 'darwin']
+        const platforms = ['darwin', 'win32', 'linux']
 
         platforms.forEach((plat) => {
           archs.forEach((arch) => {
@@ -84,7 +85,7 @@ function startPack () {
           })
         })
       } else {
-        // build for current platform only
+
         pack(os.platform(), os.arch(), log(os.platform(), os.arch()))
       }
     })
@@ -96,6 +97,7 @@ function startPack () {
 function pack (plat, arch, cb) {
   // there is no darwin ia32 electron
   if (plat === 'darwin' && arch === 'ia32') return
+  if (plat === 'mas' && arch === 'ia32') return
 
   const iconObj = {
     icon: DEFAULT_OPTS.icon + (() => {
@@ -109,12 +111,16 @@ function pack (plat, arch, cb) {
     })()
   }
 
+  iconObj.icon = "app/app.icns"
+
   const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
     platform: plat,
     arch,
     prune: true,
     'app-version': pkg.version || DEFAULT_OPTS.version,
     out: `release/${plat}-${arch}`
+    // 'app-bundle-id': 'com.florianhartmann.hackernews'
+    // 'osx-sign': true
   })
 
   console.log(opts)

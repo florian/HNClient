@@ -1,4 +1,8 @@
 # HNClient – A desktop client for Hacker News
+
+This app lets you comfortably read Hacker News without having to open an endless amount of tabs anymore. You can choose articles to view from a sidebar and can optionally read articles and their comments next to each other on a split screen.
+The app works on Mac, Linux and Windows.
+
 ([Downloads](https://github.com/florian/HNClient/releases) | [Website](https://florian.github.io/HNClient/))
 
 ## Features
@@ -34,7 +38,7 @@
 - ES6, React and Redux
 - Stylus and [css-modules](https://github.com/css-modules/css-modules)
 - Webpack
-- JavaScript [standard](https://github.com/feross/standard) style
+- JavaScript [Standard](https://github.com/feross/standard) style
 - Mostly follows the conventions of the [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
 - Uses the nice [node-hnapi](https://github.com/cheeaun/node-hnapi) which wraps HN's official API. HN's API itself is sadly not very usable so far, e.g. to fetch all 200 comments of a thread we'd need to do 200 requests, which would greatly degrade user experience. Thanks to node-hnapi this app does not need to do that.
 
@@ -47,7 +51,7 @@ Currently the Windows and Linux builds don't use an installer program to bundle 
 
 ## Contributing
 
-Please follow the JavaScript [standard](https://github.com/feross/standard) style!
+Please follow the JavaScript [Standard](https://github.com/feross/standard) style!
 
 ### Developing
 
@@ -66,4 +70,4 @@ $ npm run package-all # for all platforms
 
 ### Ideas
 
-While I implemented all of the features I definitely wanted, there's also a ![list of feature ideas](https://github.com/florian/HNClient/blob/master/ideas.md).
+While I implemented all of the features I definitely wanted, there's also a [list of feature ideas](https://github.com/florian/HNClient/blob/master/ideas.md).

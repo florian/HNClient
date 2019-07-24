@@ -14,7 +14,7 @@ The app works on Mac, Linux and Windows.
 - Things that are overlooked by most HN apps weren't forgotten, stuff like
   displaying HN polls, rendering PDFs or not showing a website for Ask HN posts
 - Automatically loads new articles if you scrolled down far enough
-- It's Open Source, you can change it however you like! :)
+- It's Open Source + [Free Software](https://www.gnu.org/philosophy/free-sw.html), you can change it however you like! :)
 
 ![](https://i.imgur.com/L3eyTqZ.png)
 ![](https://i.imgur.com/4e36YVo.png)
@@ -71,3 +71,8 @@ $ npm run package-all # for all platforms
 ### Ideas
 
 While I implemented all of the features I definitely wanted, there's also a [list of feature ideas](https://github.com/florian/HNClient/blob/master/ideas.md).
+
+#### Notes
+
+- This is a client for Hacker News hosted on ycombinator.
+[news.ycombinator.com](https://news.ycombinator.com/)

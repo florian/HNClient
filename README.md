@@ -74,5 +74,5 @@ While I implemented all of the features I definitely wanted, there's also a [lis
 
 #### Notes
 
-- This is a client for Hacker News hosted on ycombinator.
+- This is a client for Hacker News hosted on ycombinator: 
 [news.ycombinator.com](https://news.ycombinator.com/)
